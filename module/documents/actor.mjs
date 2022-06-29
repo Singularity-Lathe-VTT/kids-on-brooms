@@ -80,9 +80,9 @@ export class KidsOnBroomsActor extends Actor {
     if (this.data.type !== 'character') return;
 
     // Add level for easier access, or fall back to 0.
-    if (data.attributes.level) {
-      data.lvl = data.attributes.level.value ?? 0;
-    }
+    // if (data.attributes.level) {
+    //   data.lvl = data.attributes.level.value ?? 0;
+    // }
   }
 
   /**

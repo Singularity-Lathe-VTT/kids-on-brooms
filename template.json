@@ -3,46 +3,75 @@
     "types": ["character", "npc"],
     "templates": {
       "base": {
-        "health": {
-          "value": 10,
-          "min": 0,
-          "max": 10
+        "stats": {
+          "fight": {
+            "value": 0,
+            "stat": 0,
+            "magic": 0
+          },
+          "flight": {
+            "value": 0,
+            "stat": 0,
+            "magic": 0
+          },
+          "brains": {
+            "value": 0,
+            "stat": 0,
+            "magic": 0
+          },
+          "brawn": {
+            "value": 0,
+            "stat": 0,
+            "magic": 0
+          },
+          "charm": {
+            "value": 0,
+            "stat": 0,
+            "magic": 0
+          },
+          "grit": {
+            "value": 0,
+            "stat": 0,
+            "magic": 0
+          }
         },
-        "power": {
-          "value": 5,
-          "min": 0,
-          "max": 5
-        },
-        "biography": ""
+        "description": ""
       }
     },
     "character": {
       "templates": ["base"],
-      "attributes": {
-        "level": {
-          "value": 1
-        }
-      }
+      "trope": "",
+      "age": "",
+      "pronouns": "",
+      "fear": "",
+      "motivation": "",
+      "grade":"",
+      "broom": {
+        "name:": "",
+        "look": "",
+        "mechanicalbenifit": ""
+      },
+      "wand": {
+        "wood": "",
+        "core": ""
+      },
+      "animalfamiliar":"",
+      "schoolbag": {},
+      "adversity": 0,
+      "tropequestions": {}
     },
     "npc": {
-      "templates": ["base"],
-      "cr": 0
+      "templates": ["base"]
     }
   },
   "Item": {
-    "types": ["item", "feature"],
+    "types": ["item"],
     "templates": {
       "base": {
         "description": ""
       }
     },
     "item": {
-      "templates": ["base"],
-      "quantity": 1,
-      "weight": 0,
-      "formula": "d20 + @str.mod + ceil(@lvl / 2)"
-    },
-    "feature": {
       "templates": ["base"]
     }
   }

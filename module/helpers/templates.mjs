@@ -8,7 +8,8 @@
 
     // Actor partials.
     "systems/kidsonbrooms/templates/actor/parts/actor-features.html",
-    "systems/kidsonbrooms/templates/actor/parts/actor-items.html",
-    "systems/kidsonbrooms/templates/actor/parts/actor-effects.html",
+    "systems/kidsonbrooms/templates/actor/parts/actor-adversity.html",
+    "systems/kidsonbrooms/templates/actor/parts/actor-stats.html",
+    "systems/kidsonbrooms/templates/actor/parts/actor-strengths.html",
   ]);
 };

@@ -224,6 +224,13 @@
 }
 
 /* Styles limited to kidsonbrooms sheets */
+.kidsonbrooms {
+  /* ----------------------------------------- */
+  /*  Items Lists                              */
+  /* ----------------------------------------- */
+  /* Example style for KidsOnBrooms (can be removed if not needed) */
+}
+
 .kidsonbrooms .item-form {
   font-family: "Roboto", sans-serif;
 }
