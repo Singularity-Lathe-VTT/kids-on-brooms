@@ -1,0 +1,10 @@
+# IDE
+.idea/
+.vs/
+
+# Node Modules
+node_modules/
+module/foundry.js
+foundry.js
+foundry_07.js
+package-lock.json
