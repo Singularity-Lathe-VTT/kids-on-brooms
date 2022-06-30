@@ -1,12 +1,11 @@
 <section class="flexcol">
   {{#each data.stats as |stat key|}}
-    <Fieldset class="flexcol">
+    <Fieldset class="grid grid-5col">
       <legend>{{key}}</legend>
       <div class="flexrow flex-group-right">
-        <label for="data.stats.{{key}}.value" class="resource-label">D</label>
-        <input type="text" name="data.stats.{{key}}.value" value="{{stat.value}}" data-dtype="String"/>
+        D<input type="text" name="data.stats.{{key}}.value" value="{{stat.value}}" data-dtype="String"/>
       </div>
-      <div class="flexrow">
+      <div class="flexrow grid-span-4">
         <Fieldset class="flexrow">
         <legend>Stat</legend>
         <span class="ability-mod rollable" data-roll="d{{stat.value}}+{{stat.stat}}" data-label="Stat Roll for Fight"><i class="fas fa-dice-d20"></i></span>

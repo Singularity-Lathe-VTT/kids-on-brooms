@@ -21,7 +21,9 @@
   <nav class="sheet-tabs tabs" data-group="primary">
     {{!-- Default tab is specified in actor-sheet.mjs --}}
     <a class="item" data-tab="features">Features</a>
-    <a class="item" data-tab="tropequestions">Trope Questions</a>
+    <a class="item" data-tab="schoolbag">School Bag</a>
+    <a class="item" data-tab="strengths">Strengths</a>
+    <a class="item" data-tab="trope">Trope Questions</a>
   </nav>
 
   {{!-- Sheet Body --}}
@@ -32,35 +34,29 @@
       <section class="grid grid-3col">
         <section class="main grid-span-2">
           {{> "systems/kidsonbrooms/templates/actor/parts/actor-features.html"}}
-          {{> "systems/kidsonbrooms/templates/actor/parts/actor-strengths.html"}}
+          {{> "systems/kidsonbrooms/templates/actor/parts/actor-adversity.html"}}
         </section>
 
-        {{!-- For the main features list, span the right two columns --}}
         <aside class="sidebar">
           {{> "systems/kidsonbrooms/templates/actor/parts/actor-stats.html"}}
-          {{> "systems/kidsonbrooms/templates/actor/parts/actor-adversity.html"}}
+          
         </aside>
 
       </section>
     </div>
+    {{!-- Schoolbag Tab --}}
+    <div class="tab features" data-group="primary" data-tab="schoolbag">
+      {{editor content=data.schoolbag target="data.schoolbag" button=true owner=owner editable=editable}}
+    </div>
+
+    {{!-- Strengths Tab --}}
+    <div class="tab features" data-group="primary" data-tab="strengths">
+      {{editor content=data.strengths target="data.strengths" button=true owner=owner editable=editable}}
+    </div>
 
     {{!-- Trope Questions Tab --}}
-    <div class="tab features" data-group="primary" data-tab="tropequestions">
-      <section class="grid grid-3col">
-        <aside class="sidebar">
-
-          {{!-- The grid classes are defined in scss/global/_grid.scss. To use,
-          use both the "grid" and "grid-Ncol" class where "N" can be any number
-          from 1 to 12 and will create that number of columns.  --}}
-        </aside>
-
-        {{!-- For the main features list, span the right two columns --}}
-        <section class="main grid-span-2">
-          {{!-- This is a Handlebars partial. They're stored in the `/parts` folder next to this sheet, and defined in module/helpers/templates.mjs --}}
-          {{> "systems/kidsonbrooms/templates/actor/parts/actor-features.html"}}
-        </section>
-
-      </section>
+    <div class="tab features" data-group="primary" data-tab="trope">
+      {{editor content=data.tropequestions target="data.tropequestions" button=true owner=owner editable=editable}}
     </div>
   </section>
 </form>

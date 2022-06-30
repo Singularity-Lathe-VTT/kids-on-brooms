@@ -1,14 +1,56 @@
-<section class="grid">
-  <div class="resource flex-group-center">
-    <label for="data.name" class="resource-label">Name</label>
-    <div class="resource-content flexrow flex-center flex-between">
-    <input type="text" name="data.name" value="{{data.name}}" data-dtype="String"/>
-    </div>
-  </div>
-  <div class="resource flex-group-center">
+<section class="grid grid-3col">
+  <div class="resource flexrow">
     <label for="data.age" class="resource-label">Age</label>
-    <div class="resource-content flexrow flex-center flex-between">
     <input type="text" name="data.age" value="{{data.age}}" data-dtype="String"/>
+  </div>
+  <div class="resource grid-span-2 flexrow">
+    <label for="data.pronouns" class="resource-label">Pronouns</label>
+    <input type="text" name="data.pronouns" value="{{data.pronouns}}" data-dtype="String"/>
+  </div>
+  <div class="resource grid-span-3 flexrow">
+    <label for="data.fear" class="resource-label">Fear</label>
+    <input type="text" name="data.fear" value="{{data.fear}}" data-dtype="String"/>
+  </div>
+  <div class="resource grid-span-3 flexrow" >
+    <label for="data.motivation" class="resource-label">Motivation</label>
+    <input type="text" name="data.motivation" value="{{data.motivation}}" data-dtype="String"/>
+  </div>
+  <div class="resource grid-span-3 flexrow" >
+    <label for="data.description" class="resource-label">Description</label>
+    <input type="text" name="data.description" value="{{data.description}}" data-dtype="String"/>
+  </div>
+  <div class="resource grid-span-3 flexrow">
+    <label for="data.grade" class="resource-label">Grade</label>
+    <input type="text" name="data.grade" value="{{data.grade}}" data-dtype="String"/>
+  </div>
+  <fieldset class="grid-span-3 resource flexcol" >
+    <legend>Your Broom</legend>
+    <div class="resource flexrow" >
+      <label for="data.broom.name" class="resource-label">Name</label>
+      <input type="text" name="data.broom.name" value="{{data.broom.name}}" data-dtype="String"/>
     </div>
+    <div class="resource flexrow" >
+      <label for="data.broom.look" class="resource-label">Look</label>
+      <input type="text" name="data.broom.look" value="{{data.broom.look}}" data-dtype="String"/>
+    </div>
+    <div class="resource flexrow" >
+      <label for="data.broom.mechanicalbenifit" class="resource-label">Mechanical Benefit</label>
+      <input type="text" name="data.broom.mechanicalbenifit" value="{{data.broom.mechanicalbenifit}}" data-dtype="String"/>
+    </div>
+  </fieldset>
+  <fieldset class="grid-span-3 resource flexcol">
+    <legend>Your Broom</legend>
+    <div class="resource flexrow" >
+      <label for="data.wand.core" class="resource-label">Core</label>
+      <input type="text" name="data.wand.core" value="{{data.wand.core}}" data-dtype="String"/>
+    </div>
+    <div class="resource flexrow" >
+      <label for="data.wand.wood" class="resource-label">Wood</label>
+      <input type="text" name="data.wand.wood" value="{{data.wand.wood}}" data-dtype="String"/>
+    </div>
+  </fieldset>
+  <div class="resource grid-span-3 flexrow">
+    <label for="data.animalfamiliar" class="resource-label">Animal Familiar</label>
+    <input type="text" name="data.animalfamiliar" value="{{data.animalfamiliar}}" data-dtype="String"/>
   </div>
 </section>

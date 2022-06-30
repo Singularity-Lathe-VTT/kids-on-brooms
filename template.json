@@ -56,9 +56,10 @@
         "core": ""
       },
       "animalfamiliar":"",
-      "schoolbag": {},
+      "schoolbag": "",
       "adversity": 0,
-      "tropequestions": {}
+      "tropequestions": "",
+      "strengths": ""
     },
     "npc": {
       "templates": ["base"]

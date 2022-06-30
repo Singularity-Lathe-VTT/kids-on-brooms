@@ -11,8 +11,8 @@ export class KidsOnBroomsActorSheet extends ActorSheet {
     return mergeObject(super.defaultOptions, {
       classes: ["kidsonbrooms", "sheet", "actor"],
       template: "systems/kidsonbrooms/templates/actor/actor-sheet.html",
-      width: 600,
-      height: 600,
+      width: 800,
+      height: 800,
       tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "features" }]
     });
   }
