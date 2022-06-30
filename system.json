@@ -23,6 +23,6 @@
   "secondaryTokenAttribute": "power",
   "url": "https://github.com/Singularity-Lathe-VTT/kids-on-brooms",
   "manifest": "https://github.com/Singularity-Lathe-VTT/kids-on-brooms/system.json",
-  "download": "",
+  "download": "https://github.com/Singularity-Lathe-VTT/kids-on-brooms/archive/refs/tags/v0.1.zip",
   "license": "LICENSE.txt"
 }
