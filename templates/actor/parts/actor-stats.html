@@ -1,22 +1,28 @@
 <section class="flexcol">
   {{#each data.stats as |stat key|}}
-    <Fieldset class="flexcol">
+    <Fieldset class="flexrow">
       <legend>{{key}}</legend>
-      <div class="flexrow flex-group-right">
-        <label for="data.stats.{{key}}.value" class="resource-label">D</label>
-        <input type="text" name="data.stats.{{key}}.value" value="{{stat.value}}" data-dtype="String"/>
-      </div>
-      <div class="flexrow">
-        <Fieldset class="flexrow">
-        <legend>Stat</legend>
-        <span class="ability-mod rollable" data-roll="d{{stat.value}}+{{stat.stat}}" data-label="Stat Roll for Fight"><i class="fas fa-dice-d20"></i></span>
-        <input type="text" name="data.stats.{{key}}.stat" value="{{stat.stat}}" data-dtype="String"/>
-      </Fieldset>
-      <Fieldset class="flexrow">
-        <legend>Magic</legend>
-        <span class="ability-mod rollable" data-roll="d{{stat.value}}+{{stat.magic}}" data-label="Magic Roll for Fight"><i class="fas fa-dice-d20"></i></span>
-        <input type="text" name="data.stats.{{key}}.magic" value="{{stat.magic}}" data-dtype="String"/>
-      </Fieldset>
+      <div class="flexrow flex-group-center">
+        <select name="data.stats.{{key}}.value">
+          {{#select stat.value}}
+          <option value="d20">d20</option>
+          <option value="d12">d12</option>
+          <option value="d10">d10</option>
+          <option value="d8">d8</option>
+          <option value="d6">d6</option>
+          <option value="d4">d4</option>
+          {{/select}}
+        </select>
+        <Fieldset class="flexrow flex-group-center">
+          <legend>Stat</legend>
+          <span class="ability-mod rollable" data-roll="d{{stat.value}}+{{stat.stat}}" data-label="Stat Roll for Fight"><i class="fas fa-dice-d20"></i></span>
+          <input type="text" name="data.stats.{{key}}.stat" value="{{stat.stat}}" data-dtype="String"/>
+        </Fieldset>
+        <Fieldset class="flexrow flex-group-center">
+          <legend>Magic</legend>
+          <span class="ability-mod rollable" data-roll="d{{stat.value}}+{{stat.magic}}" data-label="Magic Roll for Fight"><i class="fas fa-dice-d20"></i></span>
+          <input type="text" name="data.stats.{{key}}.magic" value="{{stat.magic}}" data-dtype="String"/>
+        </Fieldset>
       </div>
     </Fieldset>
   {{/each}}

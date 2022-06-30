@@ -5,32 +5,32 @@
       "base": {
         "stats": {
           "fight": {
-            "value": 0,
+            "value": "d4",
             "stat": 0,
             "magic": 0
           },
           "flight": {
-            "value": 0,
+            "value": "d4",
             "stat": 0,
             "magic": 0
           },
           "brains": {
-            "value": 0,
+            "value": "d4",
             "stat": 0,
             "magic": 0
           },
           "brawn": {
-            "value": 0,
+            "value": "d4",
             "stat": 0,
             "magic": 0
           },
           "charm": {
-            "value": 0,
+            "value": "d4",
             "stat": 0,
             "magic": 0
           },
           "grit": {
-            "value": 0,
+            "value": "d4",
             "stat": 0,
             "magic": 0
           }
