@@ -3,7 +3,7 @@
   "title": "Kids On Brooms",
   "description": "The Kids On Brooms system for FoundryVTT!",
   "version": "1.0.0",
-  "minimumCoreVersion": "0.8.6",
+  "minimumCoreVersion": "9.245",
   "compatibleCoreVersion": "9",
   "author": "Josiah Bradbury",
   "esmodules": ["module/kidsonbrooms.mjs"],
@@ -19,10 +19,10 @@
   ],
   "gridDistance": 5,
   "gridUnits": "ft",
-  "primaryTokenAttribute": "health",
-  "secondaryTokenAttribute": "power",
+  "primaryTokenAttribute": "null",
+  "secondaryTokenAttribute": "null",
   "url": "https://github.com/Singularity-Lathe-VTT/kids-on-brooms",
-  "manifest": "https://github.com/Singularity-Lathe-VTT/kids-on-brooms/system.json",
+  "manifest": "https://github.com/Singularity-Lathe-VTT/kids-on-brooms/main/system.json",
   "download": "https://github.com/Singularity-Lathe-VTT/kids-on-brooms/archive/refs/tags/v0.1.zip",
   "license": "LICENSE.txt"
 }
