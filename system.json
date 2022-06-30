@@ -8,8 +8,6 @@
   "author": "Josiah Bradbury",
   "esmodules": ["module/kidsonbrooms.mjs"],
   "styles": ["css/kidsonbrooms.css"],
-  "scripts": [],
-  "packs": [],
   "languages": [
     {
       "lang": "en",
