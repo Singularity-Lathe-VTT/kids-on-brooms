@@ -21,8 +21,8 @@
   "gridUnits": "ft",
   "primaryTokenAttribute": "health",
   "secondaryTokenAttribute": "power",
-  "url": "",
-  "manifest": "",
+  "url": "https://github.com/Singularity-Lathe-VTT/kids-on-brooms",
+  "manifest": "https://github.com/Singularity-Lathe-VTT/kids-on-brooms/system.json",
   "download": "",
   "license": "LICENSE.txt"
 }
