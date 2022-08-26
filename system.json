@@ -2,7 +2,7 @@
   "name": "kidsonbrooms",
   "title": "Kids On Brooms",
   "description": "The Kids On Brooms system for FoundryVTT!",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "minimumCoreVersion": "9.245",
   "compatibleCoreVersion": "9",
   "author": "Josiah Bradbury",
