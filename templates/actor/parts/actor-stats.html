@@ -15,12 +15,12 @@
         </select>
         <Fieldset class="flexrow flex-group-center">
           <legend>Stat</legend>
-          <span class="ability-mod rollable" data-roll="{{stat.value}}+{{stat.stat}}" data-label="Stat Roll for Fight"><i class="fas fa-dice-d20"></i></span>
+          <span class="ability-mod rollable" data-roll="{{stat.value}}+{{stat.stat}}" data-label="Stat Roll for {{key}}"><i class="fas fa-dice-d20"></i></span>
           <input type="text" name="data.stats.{{key}}.stat" value="{{stat.stat}}" data-dtype="String"/>
         </Fieldset>
         <Fieldset class="flexrow flex-group-center">
           <legend>Magic</legend>
-          <span class="ability-mod rollable" data-roll="{{stat.value}}+{{stat.magic}}" data-label="Magic Roll for Fight"><i class="fas fa-dice-d20"></i></span>
+          <span class="ability-mod rollable" data-roll="{{stat.value}}+{{stat.magic}}" data-label="Magic Roll for {{key}}"><i class="fas fa-dice-d20"></i></span>
           <input type="text" name="data.stats.{{key}}.magic" value="{{stat.magic}}" data-dtype="String"/>
         </Fieldset>
       </div>
