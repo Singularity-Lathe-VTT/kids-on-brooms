@@ -1,6 +1,6 @@
 {
   "name": "kidsonbrooms",
-  "version": "1.0.0",
+  "version": "1.0.4",
   "description": "CSS compiler for the Kids On Brooms system",
   "scripts": {
     "build": "gulp build",
