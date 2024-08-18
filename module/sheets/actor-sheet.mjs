@@ -9,8 +9,7 @@ export class KidsOnBroomsActorSheet extends ActorSheet {
   /** @override */
   static get defaultOptions() {
     return mergeObject(super.defaultOptions, {
-      classes: ["kidsonbrooms", "sheet", "actor"],
-      template: "systems/kidsonbrooms/templates/actor/actor-sheet.html",
+      classes: ["kids-on-brooms", "sheet", "actor"],
       width: 800,
       height: 800,
       tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "features" }]
@@ -19,13 +18,14 @@ export class KidsOnBroomsActorSheet extends ActorSheet {
 
   /** @override */
   get template() {
-    return `systems/kidsonbrooms/templates/actor/actor-${this.actor.data.type}-sheet.html`;
+    console.log("template", this.actor)
+    return `systems/kids-on-brooms/templates/actor/actor-${this.actor.type}-sheet.html`;
   }
 
   /* -------------------------------------------- */
 
   /** @override */
-  getData() {
+  async getData() {
     // Retrieve the data structure from the base sheet. You can inspect or log
     // the context variable to see the structure, but some key properties for
     // sheets are the actor object, the data object, whether or not it's
@@ -33,10 +33,10 @@ export class KidsOnBroomsActorSheet extends ActorSheet {
     const context = super.getData();
 
     // Use a safe clone of the actor data for further operations.
-    const actorData = this.actor.data.toObject(false);
+    const actorData = this.document.toObject(false);
 
     // Add the actor's data to context.data for easier access, as well as flags.
-    context.data = actorData.data;
+    context.system = actorData.system;
     context.flags = actorData.flags;
 
     // Prepare character data and items.
@@ -49,6 +49,22 @@ export class KidsOnBroomsActorSheet extends ActorSheet {
     if (actorData.type == 'npc') {
       this._prepareItems(context);
     }
+
+    // Enrich biography info for display
+    // Enrichment turns text like `[[/r 1d20]]` into buttons
+    context.schoolbag = await TextEditor.enrichHTML(
+      this.actor.system.schoolbag,
+      {
+        // Whether to show secret blocks in the finished html
+        secrets: this.document.isOwner,
+        // Necessary in v11, can be removed in v12
+        async: true,
+        // Data to fill in for inline rolls
+        rollData: this.actor.getRollData(),
+        // Relative UUID resolution
+        relativeTo: this.actor,
+      }
+    );
 
     // Add roll data for TinyMCE editors.
     context.rollData = context.actor.getRollData();

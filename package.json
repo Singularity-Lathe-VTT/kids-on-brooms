@@ -1,5 +1,5 @@
 {
-  "name": "kidsonbrooms",
+  "name": "kids-on-brooms",
   "version": "1.0.5",
   "description": "CSS compiler for the Kids On Brooms system",
   "scripts": {
@@ -15,9 +15,12 @@
   "license": "MIT",
   "private": true,
   "dependencies": {
-    "gulp": "^4",
+    "gulp": "^5",
     "gulp-autoprefixer": "^8",
-    "gulp-sass": "^4",
+    "gulp-sass": "^5",
     "gulp-sourcemaps": "^3"
+  },
+  "devDependencies": {
+    "sass": "^1.77.8"
   }
 }

@@ -40,9 +40,9 @@ Hooks.once('init', async function() {
 
   // Register sheet application classes
   Actors.unregisterSheet("core", ActorSheet);
-  Actors.registerSheet("kidsonbrooms", KidsOnBroomsActorSheet, { makeDefault: true });
+  Actors.registerSheet("kids-on-brooms", KidsOnBroomsActorSheet, { makeDefault: true });
   Items.unregisterSheet("core", ItemSheet);
-  Items.registerSheet("kidsonbrooms", KidsOnBroomsItemSheet, { makeDefault: true });
+  Items.registerSheet("kids-on-brooms", KidsOnBroomsItemSheet, { makeDefault: true });
 
   // Preload Handlebars templates.
   return preloadHandlebarsTemplates();

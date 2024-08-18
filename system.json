@@ -1,10 +1,10 @@
 {
-  "name": "kidsonbrooms",
+  "name": "kids-on-brooms",
   "title": "Kids On Brooms",
   "description": "The Kids On Brooms system for FoundryVTT!",
   "version": "1.0.5",
   "minimumCoreVersion": "9.245",
-  "compatibleCoreVersion": "9",
+  "compatibleCoreVersion": "12",
   "author": "Josiah Bradbury",
   "esmodules": ["module/kidsonbrooms.mjs"],
   "styles": ["css/kidsonbrooms.css"],
