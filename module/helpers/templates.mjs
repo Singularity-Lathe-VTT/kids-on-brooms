@@ -11,7 +11,5 @@
     "systems/kids-on-brooms/templates/actor/parts/actor-adversity.html",
     "systems/kids-on-brooms/templates/actor/parts/actor-stats.html",
     "systems/kids-on-brooms/templates/actor/parts/actor-npc-stats.html",
-    "systems/kids-on-brooms/templates/actor/parts/actor-strengths.html",
-    "systems/kids-on-brooms/templates/actor/parts/actor-trope.html",
   ]);
 };
