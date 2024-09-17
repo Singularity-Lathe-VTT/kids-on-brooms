@@ -33,6 +33,10 @@
     }
   }
 }
+div.editor-border {
+  border: rgb(192, 192, 192) solid 2px;
+  border-radius: 10px;
+}
 
 .sheet-tabs {
   flex: 0;

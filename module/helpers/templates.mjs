@@ -7,11 +7,9 @@
   return loadTemplates([
 
     // Actor partials.
-    "systems/kidsonbrooms/templates/actor/parts/actor-features.html",
-    "systems/kidsonbrooms/templates/actor/parts/actor-adversity.html",
-    "systems/kidsonbrooms/templates/actor/parts/actor-stats.html",
-    "systems/kidsonbrooms/templates/actor/parts/actor-npc-stats.html",
-    "systems/kidsonbrooms/templates/actor/parts/actor-strengths.html",
-    "systems/kidsonbrooms/templates/actor/parts/actor-trope.html",
+    "systems/kids-on-brooms/templates/actor/parts/actor-features.html",
+    "systems/kids-on-brooms/templates/actor/parts/actor-adversity.html",
+    "systems/kids-on-brooms/templates/actor/parts/actor-stats.html",
+    "systems/kids-on-brooms/templates/actor/parts/actor-npc-stats.html",
   ]);
 };

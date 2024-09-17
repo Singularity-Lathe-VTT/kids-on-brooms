@@ -1,9 +1,9 @@
 <section class="flexcol">
-  {{#each data.stats as |stat key|}}
+  {{#each system.stats as |stat key|}}
     <Fieldset class="flexrow">
       <legend>{{key}}</legend>
       <div class="flexrow flex-group-center">
-        <select name="data.stats.{{key}}.value">
+        <select name="system.stats.{{key}}.value">
           {{#select stat.value}}
           <option value="d20">d20</option>
           <option value="d12">d12</option>
@@ -16,12 +16,12 @@
         <Fieldset class="flexrow flex-group-center">
           <legend>Stat</legend>
           <span class="ability-mod rollable" data-roll="{{stat.value}}+{{stat.stat}}" data-label="Stat Roll for {{key}}"><i class="fas fa-dice-d20"></i></span>
-          <input type="text" name="data.stats.{{key}}.stat" value="{{stat.stat}}" data-dtype="String"/>
+          <input type="text" name="system.stats.{{key}}.stat" value="{{stat.stat}}" data-dtype="String"/>
         </Fieldset>
         <Fieldset class="flexrow flex-group-center">
           <legend>Magic</legend>
           <span class="ability-mod rollable" data-roll="{{stat.value}}+{{stat.magic}}" data-label="Magic Roll for {{key}}"><i class="fas fa-dice-d20"></i></span>
-          <input type="text" name="data.stats.{{key}}.magic" value="{{stat.magic}}" data-dtype="String"/>
+          <input type="text" name="system.stats.{{key}}.magic" value="{{stat.magic}}" data-dtype="String"/>
         </Fieldset>
       </div>
     </Fieldset>
