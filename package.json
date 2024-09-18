@@ -1,6 +1,6 @@
 {
   "name": "kids-on-brooms",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "CSS compiler for the Kids On Brooms system",
   "scripts": {
     "build": "gulp build",
@@ -9,9 +9,9 @@
     "gulp": "gulp"
   },
   "browserslist": [
-    "last 3 versions"
+    "last 5 versions"
   ],
-  "author": "Josiah Bradbury",
+  "author": "Josiah Bradburym, Joscha Maier",
   "license": "MIT",
   "private": true,
   "dependencies": {

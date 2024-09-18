@@ -53,6 +53,19 @@ export class KidsOnBroomsActorSheet extends ActorSheet {
 
     // Rollable abilities.
     html.find('.rollable').click(this._onRoll.bind(this));
+    // Take adversity token
+  html.find('.take-token').click(ev => {
+    ev.preventDefault();
+    this._modifyAdversityTokens(1); // Add 1 adversity token
+  });
+
+  // Spend adversity token (own roll)
+  html.find('.spend-token').click(ev => {
+    ev.preventDefault();
+    const element = ev.currentTarget;
+    const cost = parseInt(element.dataset.cost);
+    this._spendAdversityTokens(cost, element);
+  });
   }
 
   /**
@@ -77,5 +90,56 @@ export class KidsOnBroomsActorSheet extends ActorSheet {
       return roll;
     }
   }
+
+  /**
+ * Modify the player's adversity tokens by a specified amount.
+ * @param {Number} amount - The amount to modify by (positive for gain, negative for spending).
+ */
+_modifyAdversityTokens(amount) {
+  const currentTokens = this.actor.system.adversityTokens || 0;
+  const newTokenCount = Math.max(currentTokens + amount, 0);  // Ensure it doesn't go below 0
+
+  // Update the actor's adversity token count
+  this.actor.update({ "system.adversityTokens": newTokenCount });
+
+  // Optionally, send a chat message informing the user of the token change
+  ChatMessage.create({
+    user: game.user.id,
+    speaker: ChatMessage.getSpeaker({ actor: this.actor }),
+    content: `${this.actor.name} ${amount > 0 ? 'gained' : 'spent'} ${Math.abs(amount)} adversity token(s).`
+  });
+}
+
+  /**
+ * Spend adversity tokens and modify the roll result.
+ * @param {Number} cost - The number of tokens to spend (1 for own roll, 2 for another's roll).
+ * @param {HTMLElement} element - The button element clicked, contains roll info in dataset.
+ */
+_spendAdversityTokens(cost, element) {
+  const currentTokens = this.actor.system.adversityTokens || 0;
+
+  // Check if the player has enough tokens
+  if (currentTokens < cost) {
+    ui.notifications.warn("Not enough adversity tokens!");
+    return;
+  }
+
+  // Get the roll associated with this button (stored in the element's dataset)
+  const rollFormula = element.closest('.rollable').dataset.roll;
+  const roll = new Roll(rollFormula, this.actor.getRollData());
+
+  // Modify the roll total by spending tokens (each token increases the roll by 1)
+  roll.total += cost;
+
+  // Update adversity tokens
+  this._modifyAdversityTokens(-cost);
+
+  // Send the modified roll result to chat
+  roll.toMessage({
+    speaker: ChatMessage.getSpeaker({ actor: this.actor }),
+    flavor: `Adversity Tokens spent: ${cost}. Adjusted Roll Result: ${roll.total}`,
+    rollMode: game.settings.get('core', 'rollMode'),
+  });
+}
 
 }

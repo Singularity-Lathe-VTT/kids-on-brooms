@@ -3,26 +3,47 @@
     <Fieldset class="flexrow">
       <legend>{{key}}</legend>
       <div class="flexrow flex-group-center">
+
+        <!-- Die type dropdown -->
         <select name="system.stats.{{key}}.value">
           {{#select stat.value}}
-          <option value="d20">d20</option>
-          <option value="d12">d12</option>
-          <option value="d10">d10</option>
-          <option value="d8">d8</option>
-          <option value="d6">d6</option>
-          <option value="d4">d4</option>
+            <option value="d20">d20</option>
+            <option value="d12">d12</option>
+            <option value="d10">d10</option>
+            <option value="d8">d8</option>
+            <option value="d6">d6</option>
+            <option value="d4">d4</option>
           {{/select}}
         </select>
+
+        <!-- Stat rolling and input -->
         <Fieldset class="flexrow flex-group-center">
           <legend>Stat</legend>
-          <span class="ability-mod rollable" data-roll="{{stat.value}}+{{stat.stat}}" data-label="Stat Roll for {{key}}"><i class="fas fa-dice-d20"></i></span>
-          <input type="text" name="system.stats.{{key}}.stat" value="{{stat.stat}}" data-dtype="String"/>
+          <span class="ability-mod rollable" data-roll="1{{stat.value}}+{{stat.stat}}" data-label="Stat Roll for {{key}}">
+            <i class="fas fa-dice-d20"></i>
+          </span>
+          <input type="number" name="system.stats.{{key}}.stat" value="{{stat.stat}}" data-dtype="Number"/>
         </Fieldset>
+
+        <!-- Magic rolling and input -->
         <Fieldset class="flexrow flex-group-center">
           <legend>Magic</legend>
-          <span class="ability-mod rollable" data-roll="{{stat.value}}+{{stat.magic}}" data-label="Magic Roll for {{key}}"><i class="fas fa-dice-d20"></i></span>
-          <input type="text" name="system.stats.{{key}}.magic" value="{{stat.magic}}" data-dtype="String"/>
+          <span class="ability-mod rollable" data-roll="1{{stat.value}}+{{stat.magic}}" data-label="Magic Roll for {{key}}">
+            <i class="fas fa-dice-d20"></i>
+          </span>
+          <input type="number" name="system.stats.{{key}}.magic" value="{{stat.magic}}" data-dtype="Number"/>
         </Fieldset>
+
+      </div>
+
+      <!-- Buttons for adversity tokens -->
+      <div class="adversity-buttons">
+        <button type="button" class="take-token" data-action="take">Take 1 Adversity Token</button>
+        
+        <!-- Spend adversity tokens with a number input -->
+        <input type="number" class="token-input" value="1" min="1" max="{{system.adversityTokens}}" />
+        <button type="button" class="spend-token" data-action="spend" data-owner="true">Spend Tokens (Increase Roll)</button>
+        <button type="button" class="spend-token" data-action="spend" data-owner="false">Spend 2 Tokens (Another's Roll)</button>
       </div>
     </Fieldset>
   {{/each}}
