@@ -77,6 +77,7 @@ async getData()
     if (dataset.roll) {
       let label = dataset.label ? `${dataset.label}` : '';
       let roll = new Roll(dataset.roll, this.actor.getRollData());
+      console.log(dataset.roll);
   
       // Send the roll message to chat
       const rollMessage = await roll.toMessage({
