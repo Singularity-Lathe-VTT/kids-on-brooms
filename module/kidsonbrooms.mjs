@@ -15,12 +15,8 @@ import { KIDSONBROOMS } from "./helpers/config.mjs";
 Hooks.once('init', async function() {
 
   // Add utility classes and functions to the global game object so that they're more easily
-  // Add utility classes and functions to the global game object so that they're more easily
   // accessible in global contexts.
   game.kidsonbrooms = {
-    KidsOnBroomsActor,
-    _onTakeAdversityToken: _onTakeAdversityToken,  // Add the function to the global object
-    _onSpendAdversityTokens: _onSpendAdversityTokens  // Add the function to the global object
     KidsOnBroomsActor,
     _onTakeAdversityToken: _onTakeAdversityToken,  // Add the function to the global object
     _onSpendAdversityTokens: _onSpendAdversityTokens  // Add the function to the global object
@@ -45,15 +41,37 @@ Hooks.once('init', async function() {
   Actors.unregisterSheet("core", ActorSheet);
   Actors.registerSheet("kids-on-brooms", KidsOnBroomsActorSheet, { makeDefault: true });
 
-  Hooks.on("renderChatMessage", (message, html, data) => {
+  Hooks.on("renderChatMessage", (message, html, messageData) => {
     const adversityControls = html.find('.adversity-controls');
     if (adversityControls.length > 0) {
-      const messageToEdit = adversityControls.data-roll-id;
-      const actorId = adversityControls.find(".take-adversity").data("actor-id");
-  
+      const messageToEdit = adversityControls.data("roll-id");
       // Bind event listeners for the controls
       adversityControls.find(".take-adversity").off("click").click((event) => {
-        _onTakeAdversityToken(event);
+
+        const actorId = event.currentTarget.dataset.actorId;
+        const actor = game.actors.get(actorId);
+      
+        // Check if the current user owns the actor - They can not claim if they are not
+        if (!actor.testUserPermission(game.user, "owner")) {
+          ui.notifications.warn("You don't own this character and cannot take adversity tokens.");
+          return;
+        }
+
+        // Check if the token has already been claimed -- Contigency if the button somehow activates again
+        if (message.getFlag("kids-on-brooms", "tokenClaimed")) {
+          ui.notifications.warn("This adversity token has already been claimed.");
+          return;
+        }
+
+        _onTakeAdversityToken(event, actor);
+
+        // Emit a socket request to spend tokens
+        game.socket.emit('system.kids-on-brooms', {
+          action: "takeToken",
+          messageID: message.id,
+          actorID: actor.id,
+        });
+        
       });
   
       adversityControls.find(".spend-adversity").off("click").click((event) => {
@@ -99,24 +117,16 @@ Hooks.once('ready', function() {
           yes: {
             label: "Yes",
             callback: async () => {
+
+              
               const currentTokens = spendingActor.system.adversityTokens || 0;
 
               // Update the spending actor's adversity token count
               await spendingActor.update({ "system.adversityTokens": currentTokens - data.tokenCost });
 
-              // Handle the roll update if needed
-              const message = game.messages.get(data.rollId);
-              const roll = message.rolls[0];
-
-              if (!roll.cumulativeTotal) {
-                roll.cumulativeTotal = roll.total;
-              }
-
-              roll.cumulativeTotal += data.tokensToSpend;
-
-              const messageElement = $(`.message[data-message-id="${message.id}"]`);
-              const diceTotalElement = messageElement.find('.dice-total');
-              diceTotalElement.text(roll.cumulativeTotal);
+              
+              // Modify the roll message with the new total
+              await _updateRollMessage(data.rollMessageId, data.tokensToSpend, false);
 
               console.log(`${spendingActor.name} spent ${data.tokensToSpend} tokens, updated roll total to ${roll.cumulativeTotal}`);
               ui.notifications.info(`${spendingActor.name} successfully spent ${data.tokensToSpend} tokens.`);
@@ -131,43 +141,60 @@ Hooks.once('ready', function() {
         },
         default: "yes"
       }).render(true);
+    } else if (data.action === "takeToken") {
+      let tokenControls = game.messages.get(data.messageID);
+      console.log(tokenControls);
+      // Update the chat message content with the button disabled and text changed
+      const updatedContent = tokenControls.content.replace(
+        `<button class="take-adversity" data-actor-id="${data.actorID}">Take Adversity Token</button>`,
+        `<button class="take-adversity" data-actor-id="${data.actorID}" disabled>Token claimed</button>`
+      );
+      console.log("Removing Button");
+      // Update the message content
+      tokenControls.update({ content: updatedContent });
+      // Set the flag on the chat message to indicate that the token has been claimed
+      tokenControls.setFlag("kids-on-brooms", "tokenClaimed", true);
     }
   });
 });
 
-
-async function _onTakeAdversityToken(e) {
+/***
+ * This function adds the adversity token to the actor that made the roll and logs it
+ * 
+ * @param {Event} e - The button click event
+ * @param {Actor} actor - The actor object that made the roll  
+ */
+async function _onTakeAdversityToken(e, actor) {
   e.preventDefault();
 
-  // Get the actor who made the roll
-  const actorId = e.currentTarget.dataset.actorId;
-  const actor = game.actors.get(actorId);
 
-  // Get the current player's user ID
-  const userId = game.user.id;
-  
-
-  // Retrieve the message that this button is attached to
-  const messageId = $(e.currentTarget).closest('.message').data('message-id');
+  // Get the chat message ID (assuming it's stored in the dataset)
+  const messageId = e.currentTarget.closest('.message').dataset.messageId;
   const message = game.messages.get(messageId);
 
   // Add an adversity token to the actor
   const currentTokens = actor.system.adversityTokens || 0;
   await actor.update({ "system.adversityTokens": currentTokens + 1 });
 
-  // Remove the "Take Adversity Token" button from the chat message
-  $(e.currentTarget).remove();
 
   // Notify the user
   ui.notifications.info(`You gained 1 adversity token.`);
+  console.log(`Gave one adversity token to ${actor.id}`)
 }
 
 async function _onSpendAdversityTokens(e, rollMessageId) {
+  e.preventDefault();
+  
   const rollActorId = e.currentTarget.dataset.actorId; // The actor who made the roll
   const rollActor = game.actors.get(rollActorId);
-  
+
   // Get the actor of the player who is spending tokens
-  const spendingPlayerActor = game.actors.get(game.user.character);  // Assuming player's own actor
+  const spendingPlayerActor = game.actors.get(game.user.character?.id || game.actors.filter(actor => actor.testUserPermission(game.user, "owner"))[0]?.id);
+
+  if (!spendingPlayerActor) {
+    ui.notifications.warn("You don't control any actors.");
+    return;
+  }
 
   const tokenInput = $(e.currentTarget).closest('.adversity-controls').find('.token-input').val();
   const tokensToSpend = parseInt(tokenInput, 10);
@@ -180,7 +207,7 @@ async function _onSpendAdversityTokens(e, rollMessageId) {
   let tokenCost = tokensToSpend;
 
   // If the player spending tokens is not the owner of the actor who rolled, they spend double
-  if (spendingPlayerActor.id !== rollActorId) {
+  if (!spendingPlayerActor.testUserPermission(game.user, "owner") || spendingPlayerActor.id !== rollActorId) {
     tokenCost = tokensToSpend * 2;
   }
 
@@ -198,38 +225,64 @@ async function _onSpendAdversityTokens(e, rollMessageId) {
     // Deduct the tokens from the player
     await spendingPlayerActor.update({ "system.adversityTokens": currentTokens - tokenCost });
 
-    // Handle the roll update directly
-    const roll = message.rolls[0];
-
-    if (!roll.cumulativeTotal) {
-      roll.cumulativeTotal = roll.total;
-    }
-
-    roll.cumulativeTotal += tokensToSpend;
-
-    const messageElement = $(`.message[data-message-id="${message.id}"]`);
-    const diceTotalElement = messageElement.find('.dice-total');
-    diceTotalElement.text(roll.cumulativeTotal);
-
-    console.log(`${spendingPlayerActor.name} spent ${tokensToSpend} tokens, updated roll total to ${roll.cumulativeTotal}`);
-    ui.notifications.info(`${spendingPlayerActor.name} spent ${tokensToSpend} tokens to increase the roll total.`);
+    // Modify the roll message with the new total
+    await _updateRollMessage(rollMessageId, tokensToSpend, true);
 
   } else {
     // The player does not own the actor, so request GM approval to spend the tokens
     console.log(`Requesting to spend ${tokensToSpend} tokens for ${rollActor.name} by ${spendingPlayerActor.name} (cost: ${tokenCost})`);
 
+    // Emit a socket request to spend tokens
+    game.socket.emit('system.kids-on-brooms', {
+      action: "spendTokens",
+      rollActorId: rollActorId,
+      spendingActorId: spendingPlayerActor.id,  // Send the player's actor who is spending the tokens
+      tokensToSpend: tokensToSpend,
+      tokenCost: tokenCost,
+      rollMessageId: rollMessageId  // Pass message ID to update the roll result
+    });
 
-  // Emit a socket request to spend tokens
-  game.socket.emit('system.kids-on-brooms', {
-    action: "spendTokens",
-    rollActorId: rollActorId,
-    spendingActorId: spendingPlayerActor.id,  // Send the player's actor who is spending the tokens
-    tokensToSpend: tokensToSpend,
-    tokenCost: tokenCost,
-    rollId: message.id  // Pass message ID to update the roll result
-  });
-
-  ui.notifications.info(`Requested to spend ${tokenCost} tokens for ${rollActor.name}`);
+    ui.notifications.info(`Requested to spend ${tokenCost} tokens for ${rollActor.name}`);
+  }
 }
 
+// Helper function to update the roll message with the new roll total
+async function _updateRollMessage(rollMessageId, tokensToSpend, isPlayerOfActor) {
+  const message = game.messages.get(rollMessageId);
+
+  if (!message) {
+    console.error("Message not found with ID:", rollMessageId);
+    return;
+  }
+  
+  // Retrieve current tokens spent from flags, or initialize to 0 if not found
+  let cumulativeTokensSpent = message.getFlag("kids-on-brooms", "tokensSpent") || 0;
+  let newTotal = message.getFlag("kids-on-brooms", "newRollTotal") || message.rolls[0].total;
+
+  if(isPlayerOfActor)
+  {
+    // Add the new tokens to the cumulative total
+    cumulativeTokensSpent += tokensToSpend;
+  } else {
+    cumulativeTokensSpent += 2*tokensToSpend;
+  }
+  newTotal += tokensToSpend;
+  await message.setFlag("kids-on-brooms", "newRollTotal", newTotal);
+
+  // Update the message's flags to store the cumulative tokens spent
+  await message.setFlag("kids-on-brooms", "tokensSpent", cumulativeTokensSpent);
+  let newContent = "";
+  if(cumulativeTokensSpent === 1)
+  {
+    newContent = `You have now spent ${cumulativeTokensSpent} token. The new roll total is ${newTotal}.`;
+  } else {
+    newContent = `You have now spent ${cumulativeTokensSpent} tokens. The new roll total is ${newTotal}.`;
+  }
+
+  // Create a new chat message to display the updated total
+  await ChatMessage.create({
+    speaker: ChatMessage.getSpeaker({ actor: message.speaker.actor }),
+    content: newContent,
+    type: CONST.CHAT_MESSAGE_STYLES.OTHER,
+  });
 }
