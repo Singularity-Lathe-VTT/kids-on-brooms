@@ -1,5 +1,5 @@
 {
-  "id": "kidsOnBrooms",
+  "id": "kids-on-brooms",
   "title": "Kids on Brooms System",
   "description": "The Kids on Brooms system for FoundryVTT!",
   "version": "1.0.7",
@@ -17,9 +17,7 @@
     "distance": 5,
     "units": "ft"
   },
-  //FIXME - Add the correct resources, adversity tokens
-  "primaryTokenAttribute": "resources.health",
-  //FIXME - Add links that are needed
+  "primaryTokenAttribute": "system.adversity",
   "url": "https://your/hosted/system/repo/",
   "manifest": "https://your/hosted/system/repo/system.json",
   "download": "https://your/packaged/download/archive.zip"
