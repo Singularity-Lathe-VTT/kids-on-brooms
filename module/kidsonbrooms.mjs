@@ -15,8 +15,12 @@ import { KIDSONBROOMS } from "./helpers/config.mjs";
 Hooks.once('init', async function() {
 
   // Add utility classes and functions to the global game object so that they're more easily
+  // Add utility classes and functions to the global game object so that they're more easily
   // accessible in global contexts.
   game.kidsonbrooms = {
+    KidsOnBroomsActor,
+    _onTakeAdversityToken: _onTakeAdversityToken,  // Add the function to the global object
+    _onSpendAdversityTokens: _onSpendAdversityTokens  // Add the function to the global object
     KidsOnBroomsActor,
     _onTakeAdversityToken: _onTakeAdversityToken,  // Add the function to the global object
     _onSpendAdversityTokens: _onSpendAdversityTokens  // Add the function to the global object

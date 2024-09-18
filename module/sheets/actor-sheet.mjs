@@ -8,6 +8,9 @@ export class KidsOnBroomsActorSheet extends ActorSheet {
   static get defaultOptions() 
   {
     return foundry.utils.mergeObject(super.defaultOptions, {
+  static get defaultOptions() 
+  {
+    return foundry.utils.mergeObject(super.defaultOptions, {
       classes: ["kids-on-brooms", "sheet", "actor"],
       width: 800,
       height: 800,
@@ -16,6 +19,8 @@ export class KidsOnBroomsActorSheet extends ActorSheet {
   }
 
   /** @override */
+  get template() 
+  {
   get template() 
   {
     console.log("template", this.actor)
@@ -30,16 +35,43 @@ async getData()
 {
   // Retrieve the data structure from the base sheet.
   const context = super.getData();
+  /** @override */
+async getData() 
+{
+  // Retrieve the data structure from the base sheet.
+  const context = super.getData();
 
+  // Use a safe clone of the actor data for further operations.
+  const actorData = this.document.toObject(false);
   // Use a safe clone of the actor data for further operations.
   const actorData = this.document.toObject(false);
 
   // Add the actor's data to context.data for easier access, as well as flags.
   context.system = actorData.system;
   context.flags = actorData.flags;
+  // Add the actor's data to context.data for easier access, as well as flags.
+  context.system = actorData.system;
+  context.flags = actorData.flags;
 
   // Add roll data for TinyMCE editors.
   context.rollData = context.actor.getRollData();
+  // Add roll data for TinyMCE editors.
+  context.rollData = context.actor.getRollData();
+
+
+  // Pass the global dice options from CONFIG to the template
+  context.availableDice = {
+    "d20": "d20",
+    "d12": "d12",
+    "d10": "d10",
+    "d8": "d8",
+    "d6": "d6",
+    "d4": "d4"
+  };
+
+  console.log(context);
+  return context;
+}
 
 
   // Pass the global dice options from CONFIG to the template
@@ -59,6 +91,8 @@ async getData()
   /* -------------------------------------------- */
 
   /** @override */
+  activateListeners(html) 
+  {
   activateListeners(html) 
   {
     super.activateListeners(html);
@@ -84,6 +118,7 @@ async getData()
     // Handle rolls that supply the formula directly
     if (dataset.roll) {
       let label = dataset.label ? `${dataset.label}` : '';
+      let label = dataset.label ? `${dataset.label}` : '';
       let roll = new Roll(dataset.roll, this.actor.getRollData());
   
       // Send the roll message to chat
@@ -91,6 +126,15 @@ async getData()
         speaker: ChatMessage.getSpeaker({ actor: this.actor }),
         flavor: label,
         rollMode: game.settings.get('core', 'rollMode'),
+      }).then(message => {
+        // Add adversity controls directly to the chat message content
+        const adversityHtml = this._createAdversityControls(this.actor.id);
+  
+        // Update the chat message content to include the adversity controls
+        const newContent = message.content + adversityHtml;
+  
+        // Update the message with the new content so that everyone can see the buttons
+        message.update({ content: newContent });
       });
   
       // Now send the follow-up message with the adversity controls
