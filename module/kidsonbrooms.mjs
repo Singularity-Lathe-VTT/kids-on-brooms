@@ -41,6 +41,7 @@ Hooks.once('init', async function() {
   Actors.unregisterSheet("core", ActorSheet);
   Actors.registerSheet("kids-on-brooms", KidsOnBroomsActorSheet, { makeDefault: true });
 
+  //If there is a new chat message that is a roll we add the adversity token controls
   Hooks.on("renderChatMessage", (message, html, messageData) => {
     const adversityControls = html.find('.adversity-controls');
     if (adversityControls.length > 0) {
@@ -65,7 +66,7 @@ Hooks.once('init', async function() {
 
         _onTakeAdversityToken(event, actor);
 
-        // Emit a socket request to spend tokens
+        // Emit a socket request to update the message to show that the token has been claimed
         game.socket.emit('system.kids-on-brooms', {
           action: "takeToken",
           messageID: message.id,
@@ -75,6 +76,7 @@ Hooks.once('init', async function() {
       });
   
       adversityControls.find(".spend-adversity").off("click").click((event) => {
+        //This entails a lot more, so I offloaded it to a new function
         _onSpendAdversityTokens(event, messageToEdit);
       });
     }
@@ -88,6 +90,11 @@ Hooks.once('init', async function() {
   return preloadHandlebarsTemplates();
 });
 
+/***
+ * This handles the incoming socket requests. 
+ * If a player wants to spend tokens on another players roll the gm has to approve first
+ * if a player wants to claim a token we will update the message since they do not have the permissions
+ */
 Hooks.once('ready', function() {
   game.socket.on('system.kids-on-brooms', async (data) => {
     console.log("Socket data received:", data);
@@ -101,9 +108,12 @@ Hooks.once('ready', function() {
         return;
       }
 
-      const rollActor = game.actors.get(data.rollActorId);  // The actor who made the roll
-      const spendingActor = game.actors.get(data.spendingActorId);  // The actor who is spending tokens
+      // The actor who made the roll
+      const rollActor = game.actors.get(data.rollActorId);  
+      // The actor who is spending tokens
+      const spendingActor = game.actors.get(data.spendingActorId);  
 
+      //If these for some reason do not exist
       if (!rollActor || !spendingActor) {
         console.warn("Actor not found:", data.rollActorId, data.spendingActorId);
         return;
@@ -182,11 +192,16 @@ async function _onTakeAdversityToken(e, actor) {
   console.log(`Gave one adversity token to ${actor.id}`)
 }
 
+/***
+ * This function allows players to spend tokens to change a roll. This will automatically be calculated in their sheet
+ * 
+ */
 async function _onSpendAdversityTokens(e, rollMessageId) {
   e.preventDefault();
   
-  const rollActorId = e.currentTarget.dataset.actorId; // The actor who made the roll
-  const rollActor = game.actors.get(rollActorId);
+   // The actor who made the roll
+  const rollActorId = e.currentTarget.dataset.actorId;
+  const rollActor = game.actors.get(rollActorId); //technically redundant since it is also done in the main hook, but perfomance is good enuff
 
   // Get the actor of the player who is spending tokens
   const spendingPlayerActor = game.actors.get(game.user.character?.id || game.actors.filter(actor => actor.testUserPermission(game.user, "owner"))[0]?.id);
@@ -196,6 +211,7 @@ async function _onSpendAdversityTokens(e, rollMessageId) {
     return;
   }
 
+  //Get the tokens to be spend from the input field
   const tokenInput = $(e.currentTarget).closest('.adversity-controls').find('.token-input').val();
   const tokensToSpend = parseInt(tokenInput, 10);
 
@@ -206,12 +222,13 @@ async function _onSpendAdversityTokens(e, rollMessageId) {
 
   let tokenCost = tokensToSpend;
 
-  // If the player spending tokens is not the owner of the actor who rolled, they spend double
-  if (!spendingPlayerActor.testUserPermission(game.user, "owner") || spendingPlayerActor.id !== rollActorId) {
+  // If the player spending tokens is not the owner of the actor who rolled, they spend double 
+  //(note, this is a rule of mine, I have disabled it by default)
+  if ((!spendingPlayerActor.testUserPermission(game.user, "owner") || spendingPlayerActor.id !== rollActorId) && false) {
     tokenCost = tokensToSpend * 2;
   }
 
-  // Ensure the spending actor has enough adversity tokens
+  // Ensure the spending actor has enough adversity tokens 
   if (spendingPlayerActor.system.adversityTokens < tokenCost) {
     ui.notifications.warn(`You do not have enough adversity tokens.`);
     return;
@@ -246,7 +263,7 @@ async function _onSpendAdversityTokens(e, rollMessageId) {
   }
 }
 
-// Helper function to update the roll message with the new roll total
+// Helper function to send a new message with the updated roll result
 async function _updateRollMessage(rollMessageId, tokensToSpend, isPlayerOfActor) {
   const message = game.messages.get(rollMessageId);
 

@@ -44,16 +44,6 @@ async getData()
   context.rollData = context.actor.getRollData();
 
 
-  // Pass the global dice options from CONFIG to the template
-  context.availableDice = {
-    "d20": "d20",
-    "d12": "d12",
-    "d10": "d10",
-    "d8": "d8",
-    "d6": "d6",
-    "d4": "d4"
-  };
-
   console.log(context);
   return context;
 }
@@ -96,12 +86,13 @@ async getData()
       })
   
       // Now send the follow-up message with the adversity controls
-      const adversityControlsMessage = await this._sendAdversityControlsMessage(this.actor.id, rollMessage.id);
+      await this._sendAdversityControlsMessage(this.actor.id, rollMessage.id);
   
       return roll;
     }
   }
   
+  //This just sends the buttons for the adversity token system
   async _sendAdversityControlsMessage(actorId, rollMessageId) {
     // Create the content for the adversity controls
     const adversityControlsHtml = this._createAdversityControls(actorId, rollMessageId);
