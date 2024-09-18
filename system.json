@@ -12,7 +12,7 @@
   }],
   "esmodules": ["module/kidsonbrooms.mjs"],
   "styles": ["css/kidsonbrooms.css"],
-  "socket": false,
+  "socket": true,
   "grid": {
     "distance": 5,
     "units": "ft"

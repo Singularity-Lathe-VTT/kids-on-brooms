@@ -6,14 +6,12 @@
 
         <!-- Die type dropdown -->
         <select name="system.stats.{{key}}.value">
-          {{#select stat.value}}
-            <option value="d20">d20</option>
-            <option value="d12">d12</option>
-            <option value="d10">d10</option>
-            <option value="d8">d8</option>
-            <option value="d6">d6</option>
-            <option value="d4">d4</option>
-          {{/select}}
+          <option value="d20" {{#if (eq stat.value 'd20')}}selected{{/if}}>Superb</option>
+          <option value="d12" {{#if (eq stat.value 'd12')}}selected{{/if}}>Impressive</option>
+          <option value="d10" {{#if (eq stat.value 'd10')}}selected{{/if}}>Above Average</option>
+          <option value="d8" {{#if (eq stat.value 'd8')}}selected{{/if}}>Below Average</option>
+          <option value="d6" {{#if (eq stat.value 'd6')}}selected{{/if}}>Bad</option>
+          <option value="d4" {{#if (eq stat.value 'd4')}}selected{{/if}}>Terrible</option>
         </select>
 
         <!-- Stat rolling and input -->
@@ -36,15 +34,6 @@
 
       </div>
 
-      <!-- Buttons for adversity tokens -->
-      <div class="adversity-buttons">
-        <button type="button" class="take-token" data-action="take">Take 1 Adversity Token</button>
-        
-        <!-- Spend adversity tokens with a number input -->
-        <input type="number" class="token-input" value="1" min="1" max="{{system.adversityTokens}}" />
-        <button type="button" class="spend-token" data-action="spend" data-owner="true">Spend Tokens (Increase Roll)</button>
-        <button type="button" class="spend-token" data-action="spend" data-owner="false">Spend 2 Tokens (Another's Roll)</button>
-      </div>
     </Fieldset>
   {{/each}}
 </section>

@@ -5,8 +5,9 @@
 export class KidsOnBroomsActorSheet extends ActorSheet {
 
   /** @override */
-  static get defaultOptions() {
-    return mergeObject(super.defaultOptions, {
+  static get defaultOptions() 
+  {
+    return foundry.utils.mergeObject(super.defaultOptions, {
       classes: ["kids-on-brooms", "sheet", "actor"],
       width: 800,
       height: 800,
@@ -15,7 +16,8 @@ export class KidsOnBroomsActorSheet extends ActorSheet {
   }
 
   /** @override */
-  get template() {
+  get template() 
+  {
     console.log("template", this.actor)
     return `systems/kids-on-brooms/templates/actor/actor-${this.actor.type}-sheet.html`;
   }
@@ -23,29 +25,42 @@ export class KidsOnBroomsActorSheet extends ActorSheet {
   /* -------------------------------------------- */
 
   /** @override */
-  async getData() {
-    // Retrieve the data structure from the base sheet. You can inspect or log
-    // the context variable to see the structure, but some key properties for
-    // sheets are the actor object, the data object, whether or not it's
-    // editable, the items array, and the effects array.
-    const context = super.getData();
+  /** @override */
+async getData() 
+{
+  // Retrieve the data structure from the base sheet.
+  const context = super.getData();
 
-    // Use a safe clone of the actor data for further operations.
-    const actorData = this.document.toObject(false);
+  // Use a safe clone of the actor data for further operations.
+  const actorData = this.document.toObject(false);
 
-    // Add the actor's data to context.data for easier access, as well as flags.
-    context.system = actorData.system;
-    context.flags = actorData.flags;
+  // Add the actor's data to context.data for easier access, as well as flags.
+  context.system = actorData.system;
+  context.flags = actorData.flags;
 
-    // Add roll data for TinyMCE editors.
-    context.rollData = context.actor.getRollData();
+  // Add roll data for TinyMCE editors.
+  context.rollData = context.actor.getRollData();
 
-    return context;
-  }
+
+  // Pass the global dice options from CONFIG to the template
+  context.availableDice = {
+    "d20": "d20",
+    "d12": "d12",
+    "d10": "d10",
+    "d8": "d8",
+    "d6": "d6",
+    "d4": "d4"
+  };
+
+  console.log(context);
+  return context;
+}
+
   /* -------------------------------------------- */
 
   /** @override */
-  activateListeners(html) {
+  activateListeners(html) 
+  {
     super.activateListeners(html);
     // -------------------------------------------------------------
     // Everything below here is only needed if the sheet is editable
@@ -70,9 +85,10 @@ export class KidsOnBroomsActorSheet extends ActorSheet {
       const tokensToSpend = parseInt(tokenInput.value);
 
       this._spendAdversityTokens(tokensToSpend, isOwner, element);
+
+      
     });
 }
-  }
 
   /**
    * Handle clickable rolls.
@@ -83,74 +99,117 @@ export class KidsOnBroomsActorSheet extends ActorSheet {
     e.preventDefault();
     const element = e.currentTarget;
     const dataset = element.dataset;
-
+  
     // Handle rolls that supply the formula directly.
     if (dataset.roll) {
-      let label = dataset.label ? `[roll] ${dataset.label}` : '';
+      let label = dataset.label ? `${dataset.label}` : '';
       let roll = new Roll(dataset.roll, this.actor.getRollData());
+      
       roll.toMessage({
         speaker: ChatMessage.getSpeaker({ actor: this.actor }),
         flavor: label,
         rollMode: game.settings.get('core', 'rollMode'),
+      }).then(message => {
+        // Add adversity controls directly to the chat message content
+        const adversityHtml = this._createAdversityControls(this.actor.id);
+  
+        // Update the chat message content to include the adversity controls
+        const newContent = message.content + adversityHtml;
+  
+        // Update the message with the new content so that everyone can see the buttons
+        message.update({ content: newContent });
       });
+  
       return roll;
     }
   }
+  
+  _createAdversityControls(actorId) {
+    return `
+      <div class="adversity-controls">
+        <button class="take-adversity" data-actor-id="${actorId}">Take Adversity Token</button>
+        <input type="number" class="token-input" value="1" min="1" />
+        <button class="spend-adversity" data-actor-id="${actorId}">Spend Adversity Tokens</button>
+      </div>
+    `;
+  }
 
-  /**
- * Modify the player's adversity tokens by a specified amount.
- * @param {Number} amount - The amount to modify by (positive for gain, negative for spending).
- */
-  _modifyAdversityTokens(amount) {
-    const currentTokens = this.actor.system.adversityTokens || 0;
-    const newTokenCount = Math.max(currentTokens + amount, 0);  // Ensure it doesn't go below 0
+  
+  
+  
+
+  _onTakeAdversityToken(event) {
+    event.preventDefault();
+  
+    // Get the actor who made the roll
+    const actorId = event.currentTarget.dataset.actorId;
+    const actor = game.actors.get(actorId);
+  
+    // Ensure the current user is the owner of the actor
+    if (!actor.isOwner) {
+      ui.notifications.warn("You are not the owner of this character.");
+      return;
+    }
+  
+    // Add an adversity token to the actor
+    const currentTokens = actor.system.adversityTokens || 0;
+    actor.update({ "system.adversityTokens": currentTokens + 1 });
+  
+    // Notify the user
+    ui.notifications.info(`${actor.name} gained 1 adversity token.`);
+  }
+
+  async _onSpendAdversityTokens(roll, messageId, event) {
+    event.preventDefault();
+  
+    // Get the actor who made the roll
+    const actorId = event.currentTarget.dataset.actorId;
+    const actor = game.actors.get(actorId);
+  
+    // Get the token input value
+    const tokenInput = $(event.currentTarget).closest('.adversity-controls').find('.token-input').val();
+    const tokensToSpend = parseInt(tokenInput, 10);
+  
+    if (isNaN(tokensToSpend) || tokensToSpend <= 0) {
+      ui.notifications.warn("Please enter a valid number of tokens.");
+      return;
+    }
+  
+    let tokenCost = tokensToSpend;
+    const currentTokens = actor.system.adversityTokens || 0;
+  
+    // If the current user is not the owner, they spend double
+    if (!actor.isOwner) {
+      tokenCost = tokensToSpend * 2;
+    }
+  
+    // Ensure the actor has enough adversity tokens
+    if (currentTokens < tokenCost) {
+      ui.notifications.warn("You do not have enough adversity tokens.");
+      return;
+    }
   
     // Update the actor's adversity token count
-    this.actor.update({ "system.adversityTokens": newTokenCount });
+    await actor.update({ "system.adversityTokens": currentTokens - tokenCost });
   
-    // Optionally, send a chat message informing the user of the token change
-    ChatMessage.create({
-      user: game.user.id,
-      speaker: ChatMessage.getSpeaker({ actor: this.actor }),
-      content: `${this.actor.name} ${amount > 0 ? 'gained' : 'spent'} ${Math.abs(amount)} adversity token(s).`
-    });
+    // Check if there's already a cumulative total in the roll object
+    if (!roll.cumulativeTotal) {
+      roll.cumulativeTotal = roll.total;
+    }
+
+    // Modify the cumulative total by adding the tokens spent
+    roll.cumulativeTotal += tokensToSpend;
+
+    // Find the message element by its ID
+    const messageElement = $(`.message[data-message-id="${messageId}"]`);
+
+    // Find the element containing the dice total and update it
+    const diceTotalElement = messageElement.find('.dice-total');
+    diceTotalElement.text(roll.cumulativeTotal);
+
+    // Notify the user
+    ui.notifications.info(`${actor.name} spent ${tokensToSpend} tokens to increase the roll total.`);
   }
   
-
-  /**
- * Spend adversity tokens and modify the roll result.
- * @param {Number} tokensToSpend - The number of tokens the player wants to spend.
- * @param {Boolean} isOwner - Whether the roll belongs to the current actor (true) or another actor (false).
- * @param {HTMLElement} element - The button element clicked, contains roll info in dataset.
- */
-_spendAdversityTokens(tokensToSpend, isOwner, element) {
-  const currentTokens = this.actor.system.adversityTokens || 0;
-  const tokenCost = isOwner ? tokensToSpend : tokensToSpend * 2;  // 2x cost if not the player's own roll
-
-  // Check if the player has enough tokens
-  if (currentTokens < tokenCost) {
-    ui.notifications.warn(`You don't have enough adversity tokens! You need ${tokenCost}.`);
-    return;
-  }
-
-  // Get the roll associated with this button (stored in the element's dataset)
-  const rollFormula = element.closest('.rollable').dataset.roll;
-  const roll = new Roll(rollFormula, this.actor.getRollData());
-
-  // Modify the roll total by spending tokens (each token increases the roll by 1)
-  roll.total += tokensToSpend;
-
-  // Update adversity tokens
-  this._modifyAdversityTokens(-tokenCost);
-
-  // Send the modified roll result to chat
-  roll.toMessage({
-    speaker: ChatMessage.getSpeaker({ actor: this.actor }),
-    flavor: `${this.actor.name} spent ${tokenCost} adversity token(s) to increase the roll by ${tokensToSpend}. Adjusted Roll Result: ${roll.total}`,
-    rollMode: game.settings.get('core', 'rollMode'),
-  });
-}
-
-
 
 }

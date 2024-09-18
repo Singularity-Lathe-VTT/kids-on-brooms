@@ -18,7 +18,8 @@
     "gulp": "^5",
     "gulp-autoprefixer": "^8",
     "gulp-sass": "^5",
-    "gulp-sourcemaps": "^3"
+    "gulp-sourcemaps": "^3",
+    "kids-on-brooms": "file:"
   },
   "devDependencies": {
     "sass": "^1.77.8"
