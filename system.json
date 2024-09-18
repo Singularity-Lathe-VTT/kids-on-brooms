@@ -1,26 +1,26 @@
 {
-  "name": "kids-on-brooms",
-  "title": "Kids On Brooms",
-  "description": "The Kids On Brooms system for FoundryVTT!",
-  "version": "1.0.5",
-  "minimumCoreVersion": "9.245",
-  "compatibleCoreVersion": "12",
-  "author": "Josiah Bradbury",
+  "id": "kidsOnBrooms",
+  "title": "Kids on Brooms System",
+  "description": "The Kids on Brooms system for FoundryVTT!",
+  "version": "1.0.7",
+  "compatibility": {
+    "minimum": 12,
+    "verified": 12
+  },
+  "authors": [{
+    "name": "Josiah Bradbury, Joscha Maier"
+  }],
   "esmodules": ["module/kidsonbrooms.mjs"],
   "styles": ["css/kidsonbrooms.css"],
-  "languages": [
-    {
-      "lang": "en",
-      "name": "English",
-      "path": "lang/en.json"
-    }
-  ],
-  "gridDistance": 5,
-  "gridUnits": "ft",
-  "primaryTokenAttribute": "null",
-  "secondaryTokenAttribute": "null",
-  "url": "https://github.com/Singularity-Lathe-VTT/kids-on-brooms",
-  "manifest": "https://raw.githubusercontent.com/Singularity-Lathe-VTT/kids-on-brooms/main/system.json",
-  "download": "https://github.com/Singularity-Lathe-VTT/kids-on-brooms/archive/refs/tags/v1.0.5.zip",
-  "license": "LICENSE.txt"
+  "socket": false,
+  "grid": {
+    "distance": 5,
+    "units": "ft"
+  },
+  //FIXME - Add the correct resources, adversity tokens
+  "primaryTokenAttribute": "resources.health",
+  //FIXME - Add links that are needed
+  "url": "https://your/hosted/system/repo/",
+  "manifest": "https://your/hosted/system/repo/system.json",
+  "download": "https://your/packaged/download/archive.zip"
 }
