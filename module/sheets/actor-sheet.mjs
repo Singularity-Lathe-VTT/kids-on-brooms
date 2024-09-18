@@ -60,7 +60,17 @@ async getData()
 
     // Rollable abilities.
     html.find('.rollable').click(this._onRoll.bind(this));
-     
+
+    //If the user changes their wand material save that
+    html.find('select[name="system.wand.wood"]').change(event => {
+      const value = event.target.value;
+      this.actor.update({ "system.wand.wood": value });
+    });
+
+  html.find('select[name="system.wand.core"]').change(event => {
+    const value = event.target.value;
+    this.actor.update({ "system.wand.core": value });
+  });
 }
 
   /**
@@ -70,14 +80,29 @@ async getData()
    */
   async _onRoll(e) {
     e.preventDefault();
-    const element = e.currentTarget;
-    const dataset = element.dataset;
+      const element = e.currentTarget;
+      const dataset = element.dataset;
   
-    // Handle rolls that supply the formula directly
-    if (dataset.roll) {
+      // Handle rolls that supply the formula directly
+      if (dataset.roll) {
       let label = dataset.label ? `${dataset.label}` : '';
-      let roll = new Roll(dataset.roll, this.actor.getRollData());
+      // Get the roll data and include wand bonuses
+      let rollData = this.actor.getRollData();
+      let totalBonus = 0;
       console.log(dataset.roll);
+      // Apply wood bonus if it matches the stat being rolled for
+      if (rollData.wandBonus.wood.stat === dataset.key) {
+        totalBonus += rollData.wandBonus.wood.bonus;
+      }
+
+      // Apply core bonus if it matches the stat being rolled for AND it's different from the wood bonus
+      if (rollData.wandBonus.core.stat === dataset.key && rollData.wandBonus.core.stat !== rollData.wandBonus.wood.stat) {
+        totalBonus += rollData.wandBonus.core.bonus;
+      }
+      let rollFormula = dataset.roll + `+${totalBonus}`;
+      let roll = new Roll(rollFormula, rollData);
+      console.log(rollFormula);
+      console.log(rollData);
   
       // Send the roll message to chat
       const rollMessage = await roll.toMessage({

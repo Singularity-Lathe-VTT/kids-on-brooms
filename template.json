@@ -35,6 +35,10 @@
             "magic": 0
           }
         },
+        "wand": {
+          "wood": "",
+          "core": ""
+        },
         "description": ""
       }
     },

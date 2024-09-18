@@ -3,7 +3,6 @@
     <Fieldset class="flexrow">
       <legend>{{key}}</legend>
       <div class="flexrow flex-group-center">
-
         <!-- Die type dropdown -->
         <select name="system.stats.{{key}}.value">
           <option value="d20" {{#if (eq stat.value 'd20')}}selected{{/if}}>Superb</option>
@@ -17,7 +16,7 @@
         <!-- Stat rolling and input -->
         <Fieldset class="flexrow flex-group-center">
           <legend>Stat</legend>
-          <span class="ability-mod rollable" data-roll="1{{stat.value}}x+{{stat.stat}}" data-label="Stat Roll for {{key}}">
+          <span class="ability-mod rollable" data-roll="1{{stat.value}}x+{{stat.stat}}" data-label="Stat Roll for {{key}}" data-key="{{key}}">
             <i class="fas fa-dice-d20"></i>
           </span>
           <input type="number" name="system.stats.{{key}}.stat" value="{{stat.stat}}" data-dtype="Number"/>
@@ -26,10 +25,9 @@
         <!-- Magic rolling and input -->
         <Fieldset class="flexrow flex-group-center">
           <legend>Magic</legend>
-          <span class="ability-mod rollable" data-roll="1{{stat.value}}x+{{stat.magic}}" data-label="Magic Roll for {{key}}">
+          <span class="ability-mod rollable" data-roll="1{{stat.value}}x+1d4+{{stat.stat}}" data-label="Magic Roll for {{key}}" data-key="{{key}}">
             <i class="fas fa-dice-d20"></i>
           </span>
-          <input type="number" name="system.stats.{{key}}.magic" value="{{stat.magic}}" data-dtype="Number"/>
         </Fieldset>
 
       </div>
