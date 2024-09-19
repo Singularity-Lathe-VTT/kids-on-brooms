@@ -1,7 +1,7 @@
 <section class="flexcol">
   {{#each system.stats as |stat key|}}
     <Fieldset class="flexrow">
-      <legend>{{key}}</legend>
+      <legend>{{capitalizeFirst key}}</legend>
       <div class="flexrow flex-group-center">
         <!-- Die type dropdown -->
         <select name="system.stats.{{key}}.value">

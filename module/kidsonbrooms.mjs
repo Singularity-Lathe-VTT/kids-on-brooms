@@ -14,6 +14,14 @@ import { KIDSONBROOMS } from "./helpers/config.mjs";
 
 Hooks.once('init', async function() {
 
+  // Register the helper
+  Handlebars.registerHelper('capitalizeFirst', function(string) {
+    if (typeof string === 'string') {
+      return string.charAt(0).toUpperCase() + string.slice(1);
+    }
+    return '';
+  });
+
   // Add utility classes and functions to the global game object so that they're more easily
   // accessible in global contexts.
   game.kidsonbrooms = {
