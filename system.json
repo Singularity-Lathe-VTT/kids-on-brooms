@@ -2,7 +2,7 @@
   "id": "kids-on-brooms",
   "title": "Kids on Brooms System",
   "description": "The Kids on Brooms system for FoundryVTT!",
-  "version": "1.0.7",
+  "version": "2.0.0",
   "compatibility": {
     "minimum": 12,
     "verified": 12
