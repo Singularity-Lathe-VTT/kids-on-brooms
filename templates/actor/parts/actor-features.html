@@ -92,54 +92,56 @@
       document.getElementById("broom-mechanical").value = selectedMechanical || "";
     }, 100); // Delay of 100 milliseconds
   }
-</script>
+  </script>
     <fieldset class="resource grid-span-3 flexcol">
       <legend>Wand Selection</legend>
   
         <!-- Wood Selection -->
         <div class="resource-flexrow">
         <label for="system.wand.wood" class="resource-label">Wood Type</label>
-        <input list="WoodOptions" id="wandWoodChoice" class="right-align-input" name="system.wand.wood" placeholder="Select Wood type">
+        <input list="WoodOptions" id="wandWoodChoice" name="system.wand.wood" value="{{system.wand.wood}}" placeholder="Select Wood type"
+        oninput="updateWandWoodDetails()" onblur="updateWandWoodDetails()">
         <datalist id="WoodOptions">
           <option value="">Select Wood</option>
-            <option value="Wisteria" {{#if (eq system.wand.wood "Wisteria")}}selected{{/if}}>Wisteria (Brains)</option>
-            <option value="Hawthorn" {{#if (eq system.wand.wood "Hawthorn")}}selected{{/if}}>Hawthorn (Brains)</option>
-            <option value="Pine" {{#if (eq system.wand.wood "Pine")}}selected{{/if}}>Pine (Brawn)</option>
-            <option value="Oak" {{#if (eq system.wand.wood "Oak")}}selected{{/if}}>Oak (Brawn)</option>
-            <option value="Crabapple" {{#if (eq system.wand.wood "Crabapple")}}selected{{/if}}>Crabapple (Fight)</option>
-            <option value="Dogwood" {{#if (eq system.wand.wood "Dogwood")}}selected{{/if}}>Dogwood (Fight)</option>
-            <option value="Birch" {{#if (eq system.wand.wood "Birch")}}selected{{/if}}>Birch (Flight)</option>
-            <option value="Bamboo" {{#if (eq system.wand.wood "Bamboo")}}selected{{/if}}>Bamboo (Flight)</option>
-            <option value="Ironwood" {{#if (eq system.wand.wood "Ironwood")}}selected{{/if}}>Ironwood (Grit)</option>
-            <option value="Maple" {{#if (eq system.wand.wood "Maple")}}selected{{/if}}>Maple (Grit)</option>
-            <option value="Lilac" {{#if (eq system.wand.wood "Lilac")}}selected{{/if}}>Lilac (Charm)</option>
-            <option value="Cherry" {{#if (eq system.wand.wood "Cherry")}}selected{{/if}}>Cherry (Charm)</option>
+            <option value="Wisteria">(Brains)</option>
+            <option value="Hawthorn">(Brains)</option>
+            <option value="Pine">(Brawn)</option>
+            <option value="Oak">(Brawn)</option>
+            <option value="Crabapple">(Fight)</option>
+            <option value="Dogwood">(Fight)</option>
+            <option value="Birch">(Flight)</option>
+            <option value="Bamboo">(Flight)</option>
+            <option value="Ironwood">(Grit)</option>
+            <option value="Maple">(Grit)</option>
+            <option value="Lilac">(Charm)</option>
+            <option value="Cherry">(Charm)</option>
         </datalist>
-      </div>
+        </div>
   
         <!-- Core Selection -->
         <div class="resource-flexrow">
           <label for="system.wand.core"  class="resource-label">Core Type</label>
-          <input list="CoreOptions" id="wandCoreChoice" class="right-align-input" name="system.wand.core" placeholder="Select Core type">
+          <input list="CoreOptions" id="wandCoreChoice" name="system.wand.core" value="{{system.wand.core}}" placeholder="Select Core type"
+          oninput="updateWandCoreDetails()" onblur="updateWandCoreDetails()">
           <datalist id="CoreOptions">
             <option value="">Select Core</option>
-            <option value="Parchment" {{#if (eq system.wand.core "Parchment")}}selected{{/if}}>Parchment (Brains)</option>
-            <option value="Phoenix Feather" {{#if (eq system.wand.core "Phoenix Feather")}}selected{{/if}}>Phoenix Feather (Brains)</option>
-            <option value="Owl Feather" {{#if (eq system.wand.core "Owl Feather")}}selected{{/if}}>Owl Feather (Brains)</option>
-            <option value="Gorilla Fur" {{#if (eq system.wand.core "Gorilla Fur")}}selected{{/if}}>Gorilla Fur (Brawn)</option>
-            <option value="Ogre’s Fingernail" {{#if (eq system.wand.core "Ogre’s Fingernail")}}selected{{/if}}>Ogre’s Fingernail (Brawn)</option>
-            <option value="Hippo’s Tooth" {{#if (eq system.wand.core "Hippo’s Tooth")}}selected{{/if}}>Hippo’s Tooth (Brawn)</option>
-            <option value="Dragon’s Heartstring" {{#if (eq system.wand.core "Dragon’s Heartstring")}}selected{{/if}}>Dragon’s Heartstring (Fight)</option>
-            <option value="Wolf’s Tooth" {{#if (eq system.wand.core "Wolf’s Tooth")}}selected{{/if}}>Wolf’s Tooth (Fight)</option>
-            <option value="Elk’s Antler" {{#if (eq system.wand.core "Elk’s Antler")}}selected{{/if}}>Elk’s Antler (Fight)</option>
-            <option value="Hawk’s Feather" {{#if (eq system.wand.core "Hawk’s Feather")}}selected{{/if}}>Hawk’s Feather (Flight)</option>
-            <option value="Bat’s Bone" {{#if (eq system.wand.core "Bat’s Bone")}}selected{{/if}}>Bat’s Bone (Flight)</option>
-            <option value="Changeling’s Hair" {{#if (eq system.wand.core "Changeling’s Hair")}}selected{{/if}}>Changeling’s Hair (Charm)</option>
-            <option value="Gold" {{#if (eq system.wand.core "Gold")}}selected{{/if}}>Gold (Charm)</option>
-            <option value="Mirror" {{#if (eq system.wand.core "Mirror")}}selected{{/if}}>Mirror (Charm)</option>
-            <option value="Steel" {{#if (eq system.wand.core "Steel")}}selected{{/if}}>Steel (Grit)</option>
-            <option value="Diamond" {{#if (eq system.wand.core "Diamond")}}selected{{/if}}>Diamond (Grit)</option>
-            <option value="Lion’s Mane" {{#if (eq system.wand.core "Lion’s Mane")}}selected{{/if}}>Lion’s Mane (Grit)</option>
+            <option value="Parchment">(Brains)</option>
+            <option value="Phoenix Feather">(Brains)</option>
+            <option value="Owl Feather">(Brains)</option>
+            <option value="Gorilla Fur">(Brawn)</option>
+            <option value="Ogre’s Fingernail">(Brawn)</option>
+            <option value="Hippo’s Tooth">(Brawn)</option>
+            <option value="Dragon’s Heartstring">(Fight)</option>
+            <option value="Wolf’s Tooth">(Fight)</option>
+            <option value="Elk’s Antler">(Fight)</option>
+            <option value="Hawk’s Feather">(Flight)</option>
+            <option value="Bat’s Bone">(Flight)</option>
+            <option value="Changeling’s Hair">(Charm)</option>
+            <option value="Gold">(Charm)</option>
+            <option value="Mirror">(Charm)</option>
+            <option value="Steel">(Grit)</option>
+            <option value="Diamond">(Grit)</option>
+            <option value="Lion’s Mane">(Grit)</option>
           </datalist>
         </div>  
   </fieldset>
