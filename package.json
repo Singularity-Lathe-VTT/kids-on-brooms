@@ -11,7 +11,7 @@
   "browserslist": [
     "last 5 versions"
   ],
-  "author": "Josiah Bradburym, Joscha Maier",
+  "author": "Josiah Bradbury, Joscha Maier",
   "license": "MIT",
   "private": true,
   "dependencies": {

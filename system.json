@@ -17,7 +17,7 @@
     "distance": 5,
     "units": "ft"
   },
-  "primaryTokenAttribute": "system.adversity",
+  "primaryTokenAttribute": "system.adversityTokens",
   "url": "https://your/hosted/system/repo/",
   "manifest": "https://your/hosted/system/repo/system.json",
   "download": "https://your/packaged/download/archive.zip"
