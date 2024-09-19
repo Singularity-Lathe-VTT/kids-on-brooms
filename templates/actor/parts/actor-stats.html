@@ -1,29 +1,37 @@
 <section class="flexcol">
   {{#each system.stats as |stat key|}}
     <Fieldset class="flexrow">
-      <legend>{{key}}</legend>
+      <legend>{{capitalizeFirst key}}</legend>
       <div class="flexrow flex-group-center">
+        <!-- Die type dropdown -->
         <select name="system.stats.{{key}}.value">
-          {{#select stat.value}}
-          <option value="d20">d20</option>
-          <option value="d12">d12</option>
-          <option value="d10">d10</option>
-          <option value="d8">d8</option>
-          <option value="d6">d6</option>
-          <option value="d4">d4</option>
-          {{/select}}
+          <option value="d20" {{#if (eq stat.value 'd20')}}selected{{/if}}>Superb</option>
+          <option value="d12" {{#if (eq stat.value 'd12')}}selected{{/if}}>Impressive</option>
+          <option value="d10" {{#if (eq stat.value 'd10')}}selected{{/if}}>Above Average</option>
+          <option value="d8" {{#if (eq stat.value 'd8')}}selected{{/if}}>Below Average</option>
+          <option value="d6" {{#if (eq stat.value 'd6')}}selected{{/if}}>Bad</option>
+          <option value="d4" {{#if (eq stat.value 'd4')}}selected{{/if}}>Terrible</option>
         </select>
+
+        <!-- Stat rolling and input -->
         <Fieldset class="flexrow flex-group-center">
           <legend>Stat</legend>
-          <span class="ability-mod rollable" data-roll="{{stat.value}}+{{stat.stat}}" data-label="Stat Roll for {{key}}"><i class="fas fa-dice-d20"></i></span>
-          <input type="text" name="system.stats.{{key}}.stat" value="{{stat.stat}}" data-dtype="String"/>
+          <span class="ability-mod rollable" data-roll="1{{stat.value}}x+{{stat.stat}}" data-label="Stat Roll for {{key}}" data-key="{{key}}">
+            <i class="fas fa-dice-d20"></i>
+          </span>
+          <input type="number" name="system.stats.{{key}}.stat" value="{{stat.stat}}" data-dtype="Number"/>
         </Fieldset>
+
+        <!-- Magic rolling and input -->
         <Fieldset class="flexrow flex-group-center">
           <legend>Magic</legend>
-          <span class="ability-mod rollable" data-roll="{{stat.value}}+{{stat.magic}}" data-label="Magic Roll for {{key}}"><i class="fas fa-dice-d20"></i></span>
-          <input type="text" name="system.stats.{{key}}.magic" value="{{stat.magic}}" data-dtype="String"/>
+          <span class="ability-mod rollable" data-roll="1{{stat.value}}x+1d4+{{stat.stat}}" data-label="Magic Roll for {{key}}" data-key="{{key}}">
+            <i class="fas fa-dice-d20"></i>
+          </span>
         </Fieldset>
+
       </div>
+
     </Fieldset>
   {{/each}}
 </section>

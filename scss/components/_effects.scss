@@ -12,3 +12,11 @@
     border: none;
   }
 }
+
+// _effects.scss
+.kids-on-brooms input:focus,
+.kids-on-brooms textarea:focus,
+.kids-on-brooms select:focus {
+  outline: none;
+  border-color: $focus-border-color;
+}

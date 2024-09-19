@@ -1,19 +1,16 @@
-// Flexbox.
-.flex-group-center,
-.flex-group-left,
-.flex-group-right {
-  justify-content: center;
-  align-items: center;
+// Flexbox Utility Classes
+.flex-group-center {
+  @include flexbox(center, center);
   text-align: center;
 }
 
 .flex-group-left {
-  justify-content: flex-start;
+  @include flexbox(flex-start, center);
   text-align: left;
 }
 
 .flex-group-right {
-  justify-content: flex-end;
+  @include flexbox(flex-end, center);
   text-align: right;
 }
 
@@ -29,18 +26,25 @@
   flex: 2;
 }
 
-// Alignment styles.
+// Alignment Utility Classes
 .align-left {
-  justify-content: flex-start;
+  @include flexbox(flex-start, center);
   text-align: left;
 }
 
 .align-right {
-  justify-content: flex-end;
+  @include flexbox(flex-end, center);
   text-align: right;
 }
 
 .align-center {
-  justify-content: center;
+  @include flexbox(center, center);
   text-align: center;
+}
+
+// Only apply the right alignment to specific inputs with this class
+.right-align-input {
+  flex: 1;
+  margin-left: auto; // Push the input to the far right
+  max-width: 260px; // Optional: Control the width of the input field
 }

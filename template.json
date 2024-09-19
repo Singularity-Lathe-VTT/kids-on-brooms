@@ -47,7 +47,7 @@
       "motivation": "",
       "grade":"",
       "broom": {
-        "name:": "",
+        "name": "",
         "look": "",
         "mechanicalbenifit": ""
       },
@@ -57,7 +57,7 @@
       },
       "animalfamiliar":"",
       "schoolbag": "",
-      "adversity": 0,
+      "adversityTokens": 0,
       "tropequestions": "",
       "strengths": ""
     },

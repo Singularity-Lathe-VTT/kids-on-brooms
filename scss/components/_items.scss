@@ -7,23 +7,21 @@
   background: rgba(0, 0, 0, 0.05);
   border: $border-groove;
   font-weight: bold;
+  
   > * {
     font-size: 14px;
     text-align: center;
   }
+
   .item-name {
     font-weight: bold;
     padding-left: 5px;
     text-align: left;
     display: flex;
-    // font-size: 16px;
   }
 }
 
-/* ----------------------------------------- */
-/*  Items Lists                              */
-/* ----------------------------------------- */
-
+// Items Lists
 .items-list {
   list-style: none;
   margin: 0;
@@ -39,42 +37,33 @@
     padding: 0;
   }
 
-  // Item Name
-  .item-name {
-    flex: 2;
-    margin: 0;
-    overflow: hidden;
-    font-size: 13px;
-    text-align: left;
-    align-items: center;
-    display: flex;
-    h3, h4 {
-      margin: 0;
-      white-space: nowrap;
-      overflow-x: hidden;
-    }
-  }
-
-  // Control Buttons
-  .item-controls {
-    display: flex;
-    flex: 0 0 100px;
-    justify-content: flex-end;
-    a {
-      font-size: 12px;
-      text-align: center;
-      margin: 0 6px;
-    }
-  }
-
   // Individual Item
   .item {
+    display: flex;
     align-items: center;
-    padding: 0 2px; // to align with the header border
+    padding: 0 2px; // Align with the header border
     border-bottom: 1px solid $c-faint;
-    &:last-child { border-bottom: none; }
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    // Item name and image
     .item-name {
+      flex: 2;
+      margin: 0;
+      overflow: hidden;
+      font-size: 13px;
+      text-align: left;
+      display: flex;
       color: $c-dark;
+
+      h3, h4 {
+        margin: 0;
+        white-space: nowrap;
+        overflow-x: hidden;
+      }
+
       .item-image {
         flex: 0 0 30px;
         height: 30px;
@@ -85,35 +74,50 @@
     }
   }
 
-  .item-prop {
-    text-align: center;
-    border-left: 1px solid #c9c7b8;
-    border-right: 1px solid #c9c7b8;
-    font-size: 12px;
-  }
+  // Control Buttons
+  .item-controls {
+    display: flex;
+    flex: 0 0 100px;
+    justify-content: flex-end;
 
-  // Section Header
-  .items-header {
-    height: 28px;
-    margin: 2px 0;
-    padding: 0;
-    align-items: center;
-    background: rgba(0, 0, 0, 0.05);
-    border: $border-groove;
-    font-weight: bold;
-    > * {
+    a {
       font-size: 12px;
       text-align: center;
+      margin: 0 6px;
     }
-    .item-name {
-      padding-left: 5px;
-      text-align: left;
-      // font-size: 16px;
-    }
+  }
+
+  // Item Properties (like stats or details)
+  .item-prop {
+    text-align: center;
+    border-left: 1px solid $c-faint;
+    border-right: 1px solid $c-faint;
+    font-size: 12px;
   }
 }
 
-/* Example style for KidsOnBrooms (can be removed if not needed) */
+// Section Header inside Items List
+.items-list .items-header {
+  height: 28px;
+  margin: 2px 0;
+  padding: 0;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.05);
+  border: $border-groove;
+  font-weight: bold;
+
+  > * {
+    font-size: 12px;
+    text-align: center;
+  }
+
+  .item-name {
+    padding-left: 5px;
+    text-align: left;
+  }
+}
+
+// Optional item formula block
 .item-formula {
   flex: 0 0 200px;
   padding: 0 8px;

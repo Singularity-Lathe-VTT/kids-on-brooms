@@ -1,4 +1,6 @@
 <section class="grid grid-3col">
+  
+  <fieldset class="resource grid-span-3 flexcol">
   <div class="resource flexrow">
     <label for="system.age" class="resource-label">Age</label>
     <input type="text" name="system.age" value="{{system.age}}" data-dtype="String"/>
@@ -23,34 +25,132 @@
     <label for="system.grade" class="resource-label">Grade</label>
     <input type="text" name="system.grade" value="{{system.grade}}" data-dtype="String"/>
   </div>
-  <fieldset class="grid-span-3 resource flexcol" >
+</fieldset>
+  <fieldset class="resource grid-span-3 flexcol">
     <legend>Your Broom</legend>
-    <div class="resource flexrow" >
-      <label for="system.broom.name" class="resource-label">Name</label>
-      <input type="text" name="system.broom.name" value="{{system.broom.name}}" data-dtype="String"/>
+  
+    <!-- Broom Name Input with Dropdown -->
+    <div class="resource flexrow">
+      <label for="broom-name" class="resource-label">Name</label>
+      <input list="broomOptions" id="broom-name" name="system.broom.name" 
+             value="{{system.broom.name}}" data-dtype="String" placeholder="Select or Enter Broom Name"
+             oninput="updateBroomDetails()" onblur="updateBroomDetails()">
+      <datalist id="broomOptions">
+        <option value="The Blocker's Broom" data-look="Defensive" data-mechanical="Gain the Guardian Strength"></option>
+        <option value="Bolting 4000" data-look="Fast" data-mechanical="+1 to Flight checks"></option>
+        <option value="The Bruiser" data-look="Intense" data-mechanical="+1 to Fight checks"></option>
+        <option value="Cunning Captain’s Cruiser" data-look="Natural Leader" data-mechanical="Treat Snap Decisions as Planned Actions unless facing fear"></option>
+        <option value="Daredevil’s Duster" data-look="Flashy" data-mechanical="+3 to Charm checks when performing a stunt"></option>
+        <option value="The Daring Dodger 3000" data-look="Ambitious" data-mechanical="Each Adversity Token adds +2 to your roll instead of +1"></option>
+        <option value="Heartwood’s Helper" data-look="Outgoing" data-mechanical="Each successful check grants an ally one Adversity Token"></option>
+        <option value="Mapmaker’s Friend" data-look="Level-Headed" data-mechanical="Cannot get lost if you know the area"></option>
+        <option value="The Mastermind’s Sweeper" data-look="Confident" data-mechanical="+1 to Brains checks"></option>
+        <option value="The Strong Sweep 2500" data-look="Strong" data-mechanical="+1 to Brawn checks"></option>
+        <option value="The Suave Sweeper" data-look="Trustworthy" data-mechanical="+1 to Charm checks"></option>
+        <option value="The Tough Break" data-look="Tough" data-mechanical="+1 to Grit checks"></option>
+        <option value="Valiance 2400" data-look="Brave" data-mechanical="May ignore your fears"></option>
+        <option value="Weasel’s Whisk" data-look="Sneaky" data-mechanical="Gain the Unassuming Strength"></option>
+      </datalist>
     </div>
-    <div class="resource flexrow" >
-      <label for="system.system.broom.look" class="resource-label">Look</label>
-      <input type="text" name="system.broom.look" value="{{system.broom.look}}" data-dtype="String"/>
+  
+    <!-- Broom Look -->
+    <div class="resource flexrow">
+      <label for="broom-look" class="resource-label">Look</label>
+      <input type="text" id="broom-look" name="system.broom.look" 
+             value="{{system.broom.look}}" data-dtype="String"/>
     </div>
-    <div class="resource flexrow" >
-      <label for="system.broom.mechanicalbenifit" class="resource-label">Mechanical Benefit</label>
-      <input type="text" name="system.broom.mechanicalbenifit" value="{{system.broom.mechanicalbenifit}}" data-dtype="String"/>
+  
+    <!-- Mechanical Benefit as Textarea -->
+    <div class="resource flexrow">
+      <label for="broom-mechanical" class="resource-label">Mechanical Benefit</label>
+      <textarea id="broom-mechanical" name="system.broom.mechanicalbenefit" 
+                data-dtype="String" rows="3" style="resize:none;"></textarea>
+    </div>
+  
+  </fieldset>
+  
+  <script>
+  function updateBroomDetails() {
+    // Use a short delay to allow browser to properly handle the datalist input
+    setTimeout(function() {
+      const broomNameInput = document.getElementById("broom-name").value.trim();
+      const broomOptions = document.querySelectorAll("#broomOptions option");
+
+      let selectedLook = "";
+      let selectedMechanical = "";
+
+      // Loop through the datalist options to find a matching broom name
+      broomOptions.forEach(option => {
+        if (option.value.toLowerCase() === broomNameInput.toLowerCase()) {
+          selectedLook = option.getAttribute("data-look");
+          selectedMechanical = option.getAttribute("data-mechanical");
+        }
+      });
+
+      // Update the look and mechanical benefit fields if a predefined broom is selected
+      document.getElementById("broom-look").value = selectedLook || "";
+      document.getElementById("broom-mechanical").value = selectedMechanical || "";
+    }, 100); // Delay of 100 milliseconds
+  }
+  </script>
+    <fieldset class="resource grid-span-3 flexcol">
+      <legend>Wand Selection</legend>
+  
+        <!-- Wood Selection -->
+        <div class="resource-flexrow">
+        <label for="system.wand.wood" class="resource-label">Wood Type</label>
+        <input list="WoodOptions" id="wandWoodChoice" name="system.wand.wood" value="{{system.wand.wood}}" placeholder="Select Wood type"
+        oninput="updateWandWoodDetails()" onblur="updateWandWoodDetails()">
+        <datalist id="WoodOptions">
+          <option value="">Select Wood</option>
+            <option value="Wisteria">(Brains)</option>
+            <option value="Hawthorn">(Brains)</option>
+            <option value="Pine">(Brawn)</option>
+            <option value="Oak">(Brawn)</option>
+            <option value="Crabapple">(Fight)</option>
+            <option value="Dogwood">(Fight)</option>
+            <option value="Birch">(Flight)</option>
+            <option value="Bamboo">(Flight)</option>
+            <option value="Ironwood">(Grit)</option>
+            <option value="Maple">(Grit)</option>
+            <option value="Lilac">(Charm)</option>
+            <option value="Cherry">(Charm)</option>
+        </datalist>
+        </div>
+  
+        <!-- Core Selection -->
+        <div class="resource-flexrow">
+          <label for="system.wand.core"  class="resource-label">Core Type</label>
+          <input list="CoreOptions" id="wandCoreChoice" name="system.wand.core" value="{{system.wand.core}}" placeholder="Select Core type"
+          oninput="updateWandCoreDetails()" onblur="updateWandCoreDetails()">
+          <datalist id="CoreOptions">
+            <option value="">Select Core</option>
+            <option value="Parchment">(Brains)</option>
+            <option value="Phoenix Feather">(Brains)</option>
+            <option value="Owl Feather">(Brains)</option>
+            <option value="Gorilla Fur">(Brawn)</option>
+            <option value="Ogre’s Fingernail">(Brawn)</option>
+            <option value="Hippo’s Tooth">(Brawn)</option>
+            <option value="Dragon’s Heartstring">(Fight)</option>
+            <option value="Wolf’s Tooth">(Fight)</option>
+            <option value="Elk’s Antler">(Fight)</option>
+            <option value="Hawk’s Feather">(Flight)</option>
+            <option value="Bat’s Bone">(Flight)</option>
+            <option value="Changeling’s Hair">(Charm)</option>
+            <option value="Gold">(Charm)</option>
+            <option value="Mirror">(Charm)</option>
+            <option value="Steel">(Grit)</option>
+            <option value="Diamond">(Grit)</option>
+            <option value="Lion’s Mane">(Grit)</option>
+          </datalist>
+        </div>  
+  </fieldset>
+  <fieldset class="resource grid-span-3 flexcol">
+    <legend>Animal Familiar</legend>
+    <div class="resource grid-span-3 flexrow">
+      <label for="system.animalfamiliar" class="resource-label">Animal Familiar</label>
+      <input type="text" name="system.animalfamiliar" value="{{system.animalfamiliar}}" data-dtype="String"/>
     </div>
   </fieldset>
-  <fieldset class="grid-span-3 resource flexcol">
-    <legend>Your Wand</legend>
-    <div class="resource flexrow" >
-      <label for="system.wand.core" class="resource-label">Core</label>
-      <input type="text" name="system.wand.core" value="{{system.wand.core}}" data-dtype="String"/>
-    </div>
-    <div class="resource flexrow" >
-      <label for="system.wand.wood" class="resource-label">Wood</label>
-      <input type="text" name="system.wand.wood" value="{{system.wand.wood}}" data-dtype="String"/>
-    </div>
-  </fieldset>
-  <div class="resource grid-span-3 flexrow">
-    <label for="system.animalfamiliar" class="resource-label">Animal Familiar</label>
-    <input type="text" name="system.animalfamiliar" value="{{system.animalfamiliar}}" data-dtype="String"/>
-  </div>
+  
 </section>
