@@ -18,7 +18,7 @@
     "units": "ft"
   },
   "primaryTokenAttribute": "system.adversityTokens",
-  "url": "https://your/hosted/system/repo/",
-  "manifest": "https://your/hosted/system/repo/system.json",
+  "url": "https://github.com/Singularity-Lathe-VTT/kids-on-brooms",
+  "manifest": "https://raw.githubusercontent.com/Singularity-Lathe-VTT/kids-on-brooms/main/system.json",
   "download": "https://your/packaged/download/archive.zip"
 }
