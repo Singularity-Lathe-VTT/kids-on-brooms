@@ -73,14 +73,28 @@ Hooks.once('init', async function() {
         }
 
         _onTakeAdversityToken(event, actor);
-
-        // Emit a socket request to update the message to show that the token has been claimed
-        game.socket.emit('system.kids-on-brooms', {
-          action: "takeToken",
-          messageID: message.id,
-          actorID: actor.id,
-        });
-        
+        if (game.user.isGM) {
+          let tokenControls = game.messages.get(message.id);
+          console.log(tokenControls);
+          // Update the chat message content with the button disabled and text changed
+          const updatedContent = tokenControls.content.replace(
+            `<button class="take-adversity" data-actor-id="${actor.id}">Take Adversity Token</button>`,
+            `<button class="take-adversity" data-actor-id="${actor.id}" disabled>Token claimed</button>`
+          );
+          console.log("Removing Button");
+          // Update the message content
+          tokenControls.update({ content: updatedContent });
+          // Set the flag on the chat message to indicate that the token has been claimed
+          tokenControls.setFlag("kids-on-brooms", "tokenClaimed", true);
+        } else {
+          // Emit a socket request to update the message to show that the token has been claimed
+          game.socket.emit('system.kids-on-brooms', {
+            action: "takeToken",
+            messageID: message.id,
+            actorID: actor.id,
+          });
+        }
+        console.log("Send socket message for taking a token");
       });
   
       adversityControls.find(".spend-adversity").off("click").click((event) => {
@@ -160,6 +174,11 @@ Hooks.once('ready', function() {
         default: "yes"
       }).render(true);
     } else if (data.action === "takeToken") {
+      // Only handle the request if the GM is logged in
+      if (!game.user.isGM) {
+        console.log("Not GM, ignoring the token spend request.");
+        return;
+      }
       let tokenControls = game.messages.get(data.messageID);
       console.log(tokenControls);
       // Update the chat message content with the button disabled and text changed
@@ -284,13 +303,14 @@ async function _updateRollMessage(rollMessageId, tokensToSpend, isPlayerOfActor)
   let cumulativeTokensSpent = message.getFlag("kids-on-brooms", "tokensSpent") || 0;
   let newTotal = message.getFlag("kids-on-brooms", "newRollTotal") || message.rolls[0].total;
 
-  if(isPlayerOfActor)
+  /*if(isPlayerOfActor)
   {
     // Add the new tokens to the cumulative total
     cumulativeTokensSpent += tokensToSpend;
   } else {
     cumulativeTokensSpent += 2*tokensToSpend;
-  }
+  }*/
+  cumulativeTokensSpent += tokensToSpend;
   newTotal += tokensToSpend;
   await message.setFlag("kids-on-brooms", "newRollTotal", newTotal);
 
