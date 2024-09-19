@@ -3,15 +3,16 @@
 // This is the font used for the book, will not buy it but for refrence https://www.myfonts.com/collections/dreadful-font-aiyari?queryId=undefined&index=universal_search_data&objectIDs=5368854002
 // This is the font used for text https://www.myfonts.com/products/lapidary-333-lapidary-333-434881?queryId=undefined&index=universal_search_data&objectIDs=5468003002
 // Import utilities.
+@import 'utils/variables';
 @import 'utils/typography';
 @import 'utils/colors';
 @import 'utils/mixins';
-@import 'utils/variables';
 
 /* Global styles */
 @import 'global/window';
 @import 'global/grid';
 @import 'global/flex';
+@import 'global/base';
 
 /* Styles limited to kidsonbrooms sheets */
 .kids-on-brooms {

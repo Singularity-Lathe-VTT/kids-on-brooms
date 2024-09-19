@@ -1,5 +1,232 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap");
 /* Global styles */
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap");
+.window-app {
+  font-family: "Roboto", sans-serif;
+}
+
+.rollable:hover, .rollable:focus {
+  color: #000;
+  text-shadow: 0 0 10px rgb(146, 0, 225);
+  cursor: pointer;
+}
+
+.grid {
+  display: grid;
+  gap: 10px;
+  margin: 10px 0;
+  padding: 0;
+}
+
+.grid-start-2 {
+  grid-column-start: 2;
+}
+
+.grid-span-2 {
+  grid-column-end: span 2;
+}
+
+.grid-2col {
+  grid-column: span 2/span 2;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.grid-start-3 {
+  grid-column-start: 3;
+}
+
+.grid-span-3 {
+  grid-column-end: span 3;
+}
+
+.grid-3col {
+  grid-column: span 3/span 3;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.grid-start-4 {
+  grid-column-start: 4;
+}
+
+.grid-span-4 {
+  grid-column-end: span 4;
+}
+
+.grid-4col {
+  grid-column: span 4/span 4;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.grid-start-5 {
+  grid-column-start: 5;
+}
+
+.grid-span-5 {
+  grid-column-end: span 5;
+}
+
+.grid-5col {
+  grid-column: span 5/span 5;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+
+.grid-start-6 {
+  grid-column-start: 6;
+}
+
+.grid-span-6 {
+  grid-column-end: span 6;
+}
+
+.grid-6col {
+  grid-column: span 6/span 6;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+}
+
+.grid-start-7 {
+  grid-column-start: 7;
+}
+
+.grid-span-7 {
+  grid-column-end: span 7;
+}
+
+.grid-7col {
+  grid-column: span 7/span 7;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+}
+
+.grid-start-8 {
+  grid-column-start: 8;
+}
+
+.grid-span-8 {
+  grid-column-end: span 8;
+}
+
+.grid-8col {
+  grid-column: span 8/span 8;
+  grid-template-columns: repeat(8, minmax(0, 1fr));
+}
+
+.grid-start-9 {
+  grid-column-start: 9;
+}
+
+.grid-span-9 {
+  grid-column-end: span 9;
+}
+
+.grid-9col {
+  grid-column: span 9/span 9;
+  grid-template-columns: repeat(9, minmax(0, 1fr));
+}
+
+.grid-start-10 {
+  grid-column-start: 10;
+}
+
+.grid-span-10 {
+  grid-column-end: span 10;
+}
+
+.grid-10col {
+  grid-column: span 10/span 10;
+  grid-template-columns: repeat(10, minmax(0, 1fr));
+}
+
+.grid-start-11 {
+  grid-column-start: 11;
+}
+
+.grid-span-11 {
+  grid-column-end: span 11;
+}
+
+.grid-11col {
+  grid-column: span 11/span 11;
+  grid-template-columns: repeat(11, minmax(0, 1fr));
+}
+
+.grid-start-12 {
+  grid-column-start: 12;
+}
+
+.grid-span-12 {
+  grid-column-end: span 12;
+}
+
+.grid-12col {
+  grid-column: span 12/span 12;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+}
+
+.flex-group-center {
+  display: flex;
+  flex-direction: center;
+  flex-wrap: center;
+  justify-content: flex-start;
+  align-items: stretch;
+  text-align: center;
+}
+
+.flex-group-left {
+  display: flex;
+  flex-direction: flex-start;
+  flex-wrap: center;
+  justify-content: flex-start;
+  align-items: stretch;
+  text-align: left;
+}
+
+.flex-group-right {
+  display: flex;
+  flex-direction: flex-end;
+  flex-wrap: center;
+  justify-content: flex-start;
+  align-items: stretch;
+  text-align: right;
+}
+
+.flexshrink {
+  flex: 0;
+}
+
+.flex-between {
+  justify-content: space-between;
+}
+
+.flexlarge {
+  flex: 2;
+}
+
+.align-left {
+  display: flex;
+  flex-direction: flex-start;
+  flex-wrap: center;
+  justify-content: flex-start;
+  align-items: stretch;
+  text-align: left;
+}
+
+.align-right {
+  display: flex;
+  flex-direction: flex-end;
+  flex-wrap: center;
+  justify-content: flex-start;
+  align-items: stretch;
+  text-align: right;
+}
+
+.align-center {
+  display: flex;
+  flex-direction: center;
+  flex-wrap: center;
+  justify-content: flex-start;
+  align-items: stretch;
+  text-align: center;
+}
+
 .window-app {
   font-family: "Roboto", sans-serif;
 }
@@ -10,262 +237,31 @@
   cursor: pointer;
 }
 
-.grid,
-.grid-2col {
-  display: grid;
-  grid-column: span 2/span 2;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 10px;
-  margin: 10px 0;
-  padding: 0;
-}
-
-.grid-3col {
-  grid-column: span 3/span 3;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-}
-
-.grid-4col {
-  grid-column: span 4/span 4;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-}
-
-.grid-5col {
-  grid-column: span 5/span 5;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
-}
-
-.grid-6col {
-  grid-column: span 6/span 6;
-  grid-template-columns: repeat(6, minmax(0, 1fr));
-}
-
-.grid-7col {
-  grid-column: span 7/span 7;
-  grid-template-columns: repeat(7, minmax(0, 1fr));
-}
-
-.grid-8col {
-  grid-column: span 8/span 8;
-  grid-template-columns: repeat(8, minmax(0, 1fr));
-}
-
-.grid-9col {
-  grid-column: span 9/span 9;
-  grid-template-columns: repeat(9, minmax(0, 1fr));
-}
-
-.grid-10col {
-  grid-column: span 10/span 10;
-  grid-template-columns: repeat(10, minmax(0, 1fr));
-}
-
-.grid-11col {
-  grid-column: span 11/span 11;
-  grid-template-columns: repeat(11, minmax(0, 1fr));
-}
-
-.grid-12col {
-  grid-column: span 12/span 12;
-  grid-template-columns: repeat(12, minmax(0, 1fr));
-}
-
-.grid-start-2 {
-  grid-column-start: 2;
-}
-
-.grid-start-3 {
-  grid-column-start: 3;
-}
-
-.grid-start-4 {
-  grid-column-start: 4;
-}
-
-.grid-start-5 {
-  grid-column-start: 5;
-}
-
-.grid-start-6 {
-  grid-column-start: 6;
-}
-
-.grid-start-7 {
-  grid-column-start: 7;
-}
-
-.grid-start-8 {
-  grid-column-start: 8;
-}
-
-.grid-start-9 {
-  grid-column-start: 9;
-}
-
-.grid-start-10 {
-  grid-column-start: 10;
-}
-
-.grid-start-11 {
-  grid-column-start: 11;
-}
-
-.grid-start-12 {
-  grid-column-start: 12;
-}
-
-.grid-span-2 {
-  grid-column-end: span 2;
-}
-
-.grid-span-3 {
-  grid-column-end: span 3;
-}
-
-.grid-span-4 {
-  grid-column-end: span 4;
-}
-
-.grid-span-5 {
-  grid-column-end: span 5;
-}
-
-.grid-span-6 {
-  grid-column-end: span 6;
-}
-
-.grid-span-7 {
-  grid-column-end: span 7;
-}
-
-.grid-span-8 {
-  grid-column-end: span 8;
-}
-
-.grid-span-9 {
-  grid-column-end: span 9;
-}
-
-.grid-span-10 {
-  grid-column-end: span 10;
-}
-
-.grid-span-11 {
-  grid-column-end: span 11;
-}
-
-.grid-span-12 {
-  grid-column-end: span 12;
-}
-
-.flex-group-center,
-.flex-group-left,
-.flex-group-right {
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  text-align: center;
-}
-
-.flex-group-left {
-  -webkit-box-pack: start;
-  -ms-flex-pack: start;
-  justify-content: flex-start;
-  text-align: left;
-}
-
-.flex-group-right {
-  -webkit-box-pack: end;
-  -ms-flex-pack: end;
-  justify-content: flex-end;
-  text-align: right;
-}
-
-.flexshrink {
-  -webkit-box-flex: 0;
-  -ms-flex: 0;
-  flex: 0;
-}
-
-.flex-between {
-  -webkit-box-pack: justify;
-  -ms-flex-pack: justify;
-  justify-content: space-between;
-}
-
-.flexlarge {
-  -webkit-box-flex: 2;
-  -ms-flex: 2;
-  flex: 2;
-}
-
-.align-left {
-  -webkit-box-pack: start;
-  -ms-flex-pack: start;
-  justify-content: flex-start;
-  text-align: left;
-}
-
-.align-right {
-  -webkit-box-pack: end;
-  -ms-flex-pack: end;
-  justify-content: flex-end;
-  text-align: right;
-}
-
-.align-center {
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  text-align: center;
-}
-
 /* Styles limited to kidsonbrooms sheets */
-  /* ----------------------------------------- */
-  /*  Items Lists                              */
-  /* ----------------------------------------- */
-  /* Example style for KidsOnBrooms (can be removed if not needed) */
-
 .kids-on-brooms .item-form {
   font-family: "Roboto", sans-serif;
 }
 .kids-on-brooms .sheet-header {
-  -webkit-box-flex: 0;
-  -ms-flex: 0 auto;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: stretch;
   flex: 0 auto;
   overflow: hidden;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-  -ms-flex-direction: row;
-  flex-direction: row;
-  -ms-flex-wrap: wrap;
-  flex-wrap: wrap;
-  -webkit-box-pack: start;
-  -ms-flex-pack: start;
-  justify-content: flex-start;
   margin-bottom: 10px;
 }
 .kids-on-brooms .sheet-header .profile-img {
-  -webkit-box-flex: 0;
-  -ms-flex: 0 0 100px;
   flex: 0 0 100px;
   height: 100px;
   margin-right: 10px;
 }
 .kids-on-brooms .sheet-header .header-fields {
-  -webkit-box-flex: 1;
-  -ms-flex: 1;
   flex: 1;
 }
 .kids-on-brooms .sheet-header h1.charname {
   height: 50px;
-  padding: 0px;
+  padding: 0;
   margin: 5px 0;
   border-bottom: 0;
 }
@@ -275,12 +271,10 @@
   margin: 0;
 }
 .kids-on-brooms div.editor-border {
-  border: rgb(192, 192, 192) solid 2px;
+  border: 2px solid rgb(8, 155, 241);
   border-radius: 10px;
 }
 .kids-on-brooms .sheet-tabs {
-  -webkit-box-flex: 0;
-  -ms-flex: 0;
   flex: 0;
 }
 .kids-on-brooms .sheet-body,
@@ -301,8 +295,6 @@
   height: 28px;
   margin: 2px 0;
   padding: 0;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
   align-items: center;
   background: rgba(0, 0, 0, 0.05);
   border: 2px groove #eeede0;
@@ -316,8 +308,6 @@
   font-weight: bold;
   padding-left: 5px;
   text-align: left;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
 }
 .kids-on-brooms .items-list {
@@ -333,45 +323,8 @@
   margin: 0;
   padding: 0;
 }
-.kids-on-brooms .items-list .item-name {
-  -webkit-box-flex: 2;
-  -ms-flex: 2;
-  flex: 2;
-  margin: 0;
-  overflow: hidden;
-  font-size: 13px;
-  text-align: left;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-}
-.kids-on-brooms .items-list .item-name h3, .kids-on-brooms .items-list .item-name h4 {
-  margin: 0;
-  white-space: nowrap;
-  overflow-x: hidden;
-}
-.kids-on-brooms .items-list .item-controls {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-flex: 0;
-  -ms-flex: 0 0 100px;
-  flex: 0 0 100px;
-  -webkit-box-pack: end;
-  -ms-flex-pack: end;
-  justify-content: flex-end;
-}
-.kids-on-brooms .items-list .item-controls a {
-  font-size: 12px;
-  text-align: center;
-  margin: 0 6px;
-}
 .kids-on-brooms .items-list .item {
-  -webkit-box-align: center;
-  -ms-flex-align: center;
+  display: flex;
   align-items: center;
   padding: 0 2px;
   border-bottom: 1px solid #c9c7b8;
@@ -380,16 +333,35 @@
   border-bottom: none;
 }
 .kids-on-brooms .items-list .item .item-name {
+  flex: 2;
+  margin: 0;
+  overflow: hidden;
+  font-size: 13px;
+  text-align: left;
+  display: flex;
   color: #191813;
 }
+.kids-on-brooms .items-list .item .item-name h3, .kids-on-brooms .items-list .item .item-name h4 {
+  margin: 0;
+  white-space: nowrap;
+  overflow-x: hidden;
+}
 .kids-on-brooms .items-list .item .item-name .item-image {
-  -webkit-box-flex: 0;
-  -ms-flex: 0 0 30px;
   flex: 0 0 30px;
   height: 30px;
   background-size: 30px;
   border: none;
   margin-right: 5px;
+}
+.kids-on-brooms .items-list .item-controls {
+  display: flex;
+  flex: 0 0 100px;
+  justify-content: flex-end;
+}
+.kids-on-brooms .items-list .item-controls a {
+  font-size: 12px;
+  text-align: center;
+  margin: 0 6px;
 }
 .kids-on-brooms .items-list .item-prop {
   text-align: center;
@@ -401,8 +373,6 @@
   height: 28px;
   margin: 2px 0;
   padding: 0;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
   align-items: center;
   background: rgba(0, 0, 0, 0.05);
   border: 2px groove #eeede0;
@@ -417,8 +387,6 @@
   text-align: left;
 }
 .kids-on-brooms .item-formula {
-  -webkit-box-flex: 0;
-  -ms-flex: 0 0 200px;
   flex: 0 0 200px;
   padding: 0 8px;
 }
@@ -433,71 +401,11 @@
 .kids-on-brooms .effects .item .effect-controls {
   border: none;
 }
-
-
-/* Dropdown list consistency (for datalist) */
-.kids-on-brooms input[list] {
-  appearance: none;
-  background-repeat: no-repeat;
-  background-position: right 10px center;
-  background-size: 12px;
-  padding-right: 0px; /* Ensure space for the arrow */
-}
-
-.kids-on-brooms datalist option {
-  font-family: "Roboto", sans-serif;
-  font-size: 14px;
-}
-
-/* Textarea for Mechanical Benefit */
-.kids-on-brooms textarea {
-  resize: none; /* Prevent resizing */
-  height: 3em; /* Consistent height for textareas */
-}
-
-/* Flexbox for consistent layout */
-.kids-on-brooms .resource.flexrow {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 10px;
-}
-
-.kids-on-brooms .resource-label {
-  font-weight: bold;
-  width: auto;
-  margin-right: 10px;
-}
-
-/* Broom and Wand Selection input styling */
-.kids-on-brooms .wand-selection input,
-.kids-on-brooms .wand-selection select,
-.kids-on-brooms .broom-selection input {
-  width: 100%;
-  max-width: 300px;
-}
-
-/* Consistent border and appearance for the whole form */
-.kids-on-brooms fieldset {
-  border: 2px solid #ccc;
-  padding: 10px;
-  border-radius: 5px;
-}
-
-/* Optional: Adjust dropdown arrow for <select> elements */
-.kids-on-brooms select {
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  background-position: right 10px center;
-  background-repeat: no-repeat;
-  padding-right: 30px;
-}
-
-/* Add consistent hover and focus effects */
-.kids-on-brooms input:focus,
-.kids-on-brooms textarea:focus,
-.kids-on-brooms select:focus {
+.kids-on-brooms .kids-on-brooms input:focus,
+.kids-on-brooms .kids-on-brooms textarea:focus,
+.kids-on-brooms .kids-on-brooms select:focus {
   outline: none;
-  border-color: #222222; /* Lighter focus border */
+  border-color: #8102dd;
 }
+
+/*# sourceMappingURL=test.css.map */

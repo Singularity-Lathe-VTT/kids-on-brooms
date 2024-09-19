@@ -3,12 +3,9 @@
 }
 
 .sheet-header {
+  @include flexbox(row, wrap, flex-start); // Use a mixin for flexbox
   flex: 0 auto;
   overflow: hidden;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: flex-start;
   margin-bottom: 10px;
 
   .profile-img {
@@ -23,9 +20,10 @@
 
   h1.charname {
     height: 50px;
-    padding: 0px;
+    padding: 0;
     margin: 5px 0;
     border-bottom: 0;
+
     input {
       width: 100%;
       height: 100%;
@@ -33,8 +31,9 @@
     }
   }
 }
+
 div.editor-border {
-  border: rgb(8, 155, 241) solid 2px;
+  border: 2px solid $primary-border-color; // Replace the hardcoded color with a variable
   border-radius: 10px;
 }
 
