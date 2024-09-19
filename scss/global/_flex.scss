@@ -41,3 +41,10 @@
   @include flexbox(center, center);
   text-align: center;
 }
+
+// Only apply the right alignment to specific inputs with this class
+.right-align-input {
+  flex: 1;
+  margin-left: auto; // Push the input to the far right
+  max-width: 260px; // Optional: Control the width of the input field
+}

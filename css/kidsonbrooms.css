@@ -227,6 +227,12 @@
   text-align: center;
 }
 
+.right-align-input {
+  flex: 1;
+  margin-left: auto;
+  max-width: 260px;
+}
+
 .window-app {
   font-family: "Roboto", sans-serif;
 }
@@ -271,7 +277,7 @@
   margin: 0;
 }
 .kids-on-brooms div.editor-border {
-  border: 2px solid rgb(8, 155, 241);
+  border: 2px solid rgb(81, 81, 81);
   border-radius: 10px;
 }
 .kids-on-brooms .sheet-tabs {
@@ -287,6 +293,12 @@
 }
 .kids-on-brooms .tox .tox-edit-area {
   padding: 0 8px;
+}
+.kids-on-brooms .selection-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
 }
 .kids-on-brooms .resource-label {
   font-weight: bold;
@@ -408,4 +420,4 @@
   border-color: #8102dd;
 }
 
-/*# sourceMappingURL=test.css.map */
+/*# sourceMappingURL=kidsonbrooms.css.map */

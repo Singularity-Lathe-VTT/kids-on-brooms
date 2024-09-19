@@ -1,4 +1,6 @@
 <section class="grid grid-3col">
+  
+  <fieldset class="resource grid-span-3 flexcol">
   <div class="resource flexrow">
     <label for="system.age" class="resource-label">Age</label>
     <input type="text" name="system.age" value="{{system.age}}" data-dtype="String"/>
@@ -23,11 +25,12 @@
     <label for="system.grade" class="resource-label">Grade</label>
     <input type="text" name="system.grade" value="{{system.grade}}" data-dtype="String"/>
   </div>
-  <fieldset class="grid-span-3 resource flexcol">
+</fieldset>
+  <fieldset class="resource grid-span-3 flexcol">
     <legend>Your Broom</legend>
   
     <!-- Broom Name Input with Dropdown -->
-    <div class="resource grid-span-3 flexrow">
+    <div class="resource flexrow">
       <label for="broom-name" class="resource-label">Name</label>
       <input list="broomOptions" id="broom-name" name="system.broom.name" 
              value="{{system.broom.name}}" data-dtype="String" placeholder="Select or Enter Broom Name"
@@ -67,38 +70,36 @@
   </fieldset>
   
   <script>
-    function updateBroomDetails() {
-      // Use a short delay to allow browser to properly handle the datalist input
-      setTimeout(function() {
-        const broomNameInput = document.getElementById("broom-name").value.trim();
-        const broomOptions = document.querySelectorAll("#broomOptions option");
-  
-        let selectedLook = "";
-        let selectedMechanical = "";
-  
-        // Loop through the datalist options to find a matching broom name
-        broomOptions.forEach(option => {
-          if (option.value.toLowerCase() === broomNameInput.toLowerCase()) {
-            selectedLook = option.getAttribute("data-look");
-            selectedMechanical = option.getAttribute("data-mechanical");
-          }
-        });
-  
-        // Update the look and mechanical benefit fields if a predefined broom is selected
-        document.getElementById("broom-look").value = selectedLook || "";
-        document.getElementById("broom-mechanical").value = selectedMechanical || "";
-      }, 100); // Delay of 100 milliseconds
-    }
-  </script>
-  <fieldset class="grid-span-3 resource flexcol">
-    <Fieldset class="flexrow">
+  function updateBroomDetails() {
+    // Use a short delay to allow browser to properly handle the datalist input
+    setTimeout(function() {
+      const broomNameInput = document.getElementById("broom-name").value.trim();
+      const broomOptions = document.querySelectorAll("#broomOptions option");
+
+      let selectedLook = "";
+      let selectedMechanical = "";
+
+      // Loop through the datalist options to find a matching broom name
+      broomOptions.forEach(option => {
+        if (option.value.toLowerCase() === broomNameInput.toLowerCase()) {
+          selectedLook = option.getAttribute("data-look");
+          selectedMechanical = option.getAttribute("data-mechanical");
+        }
+      });
+
+      // Update the look and mechanical benefit fields if a predefined broom is selected
+      document.getElementById("broom-look").value = selectedLook || "";
+      document.getElementById("broom-mechanical").value = selectedMechanical || "";
+    }, 100); // Delay of 100 milliseconds
+  }
+</script>
+    <fieldset class="resource grid-span-3 flexcol">
       <legend>Wand Selection</legend>
   
-      <div class="flexcol">
         <!-- Wood Selection -->
-        <div class="wand-selection">
-        <label for="system.wand.wood">Wood Type</label>
-        <input list="WoodOptions" id="wandWoodChoice" name="system.wand.wood" placeholder="Select Wood type">
+        <div class="resource-flexrow">
+        <label for="system.wand.wood" class="resource-label">Wood Type</label>
+        <input list="WoodOptions" id="wandWoodChoice" class="right-align-input" name="system.wand.wood" placeholder="Select Wood type">
         <datalist id="WoodOptions">
           <option value="">Select Wood</option>
             <option value="Wisteria" {{#if (eq system.wand.wood "Wisteria")}}selected{{/if}}>Wisteria (Brains)</option>
@@ -117,9 +118,9 @@
       </div>
   
         <!-- Core Selection -->
-        <div class="wand-selection">
-          <label for="system.wand.core">Core Type</label>
-          <input list="CoreOptions" id="wandCoreChoice" name="system.wand.core" placeholder="Select Core type">
+        <div class="resource-flexrow">
+          <label for="system.wand.core"  class="resource-label">Core Type</label>
+          <input list="CoreOptions" id="wandCoreChoice" class="right-align-input" name="system.wand.core" placeholder="Select Core type">
           <datalist id="CoreOptions">
             <option value="">Select Core</option>
             <option value="Parchment" {{#if (eq system.wand.core "Parchment")}}selected{{/if}}>Parchment (Brains)</option>
@@ -140,12 +141,14 @@
             <option value="Diamond" {{#if (eq system.wand.core "Diamond")}}selected{{/if}}>Diamond (Grit)</option>
             <option value="Lion’s Mane" {{#if (eq system.wand.core "Lion’s Mane")}}selected{{/if}}>Lion’s Mane (Grit)</option>
           </datalist>
-        </div>        
-      </div>
-    </Fieldset>
+        </div>  
   </fieldset>
-  <div class="resource grid-span-3 flexrow">
-    <label for="system.animalfamiliar" class="resource-label">Animal Familiar</label>
-    <input type="text" name="system.animalfamiliar" value="{{system.animalfamiliar}}" data-dtype="String"/>
-  </div>
+  <fieldset class="resource grid-span-3 flexcol">
+    <legend>Animal Familiar</legend>
+    <div class="resource grid-span-3 flexrow">
+      <label for="system.animalfamiliar" class="resource-label">Animal Familiar</label>
+      <input type="text" name="system.animalfamiliar" value="{{system.animalfamiliar}}" data-dtype="String"/>
+    </div>
+  </fieldset>
+  
 </section>

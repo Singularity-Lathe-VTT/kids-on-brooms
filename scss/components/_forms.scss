@@ -56,3 +56,11 @@ div.editor-border {
     padding: 0 8px;
   }
 }
+
+// Flexbox container for each row
+.selection-row {
+  display: flex;
+  justify-content: space-between; // Ensures label stays left and input moves to the right
+  align-items: center; // Vertically center the label and input
+  margin-bottom: 10px; // Optional: Add some space between rows
+}
