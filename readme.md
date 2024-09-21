@@ -1,0 +1,1 @@
+This module is no longer maintained, the current active brancch is located here: https://raw.githubusercontent.com/josmaier/KidsOnBroomsFoundryVTT/2d847a71f244d4f16cfcddb1db8752b00c220936/system.json
